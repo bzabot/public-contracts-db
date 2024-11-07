@@ -68,3 +68,10 @@ OK 11. localExecucao: String (Portugal, Distrito, Concelho)
 OK 12. fundamentacao: Artigo fundamentador
 13. ProcedimentoCentralizado: Sim ou Não (Mudar para T ou F?)
 14. DescrAcordoQuadro: string com descrição
+
+-------------------------------------------------------------
+Coloquei na classe Contrato tudo que é intrínsico (único de um contrato)
+Na classe entidade podem ter municípios e empresas, que podem se relacionar como adjudicantes ou adjucatarios em um contrato
+Os tipos de contrato são outra tabela, há várias tipos padrões em um contrato. Essa mesma lógica se aplica ao cpv e ao Artigo.
+Ainda preciso "quebrar" a tabela Local em outras três tabeles (País, Distrito e Concelho) e elas precisam se relacionar entre si e com o contrato
+
