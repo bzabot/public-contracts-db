@@ -1,5 +1,9 @@
 # Problemas e Soluções no Tratamento de Dados
 ## Local de execução
+- Colunas que tem mais de um valor - local de execucao, tipo de contrato, cpv, entidades
+
+- vi que pode ser que tenha mais que uma fundamentação, mas no caso do nosso dataset isso nao ocorre
+
 ### Problema 1: Múltiplos locais por contrato
 Em alguns casos, um contrato pode conter mais de uma localidade.
 

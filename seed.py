@@ -124,6 +124,36 @@ def table_local(cur, value):
 
 # def insert
 
+def handle_entidades(list_values, i):
+    """Manipula entradas para o caso especial de 'entidades'."""
+    if i != len(list_values) - 1 and len(list_values[i + 1].split(" - ", 1)) == 1:
+        # Junta o próximo valor com o atual e indica que a próxima entrada deve ser pulada
+        combined_value = list_values[i] + "|" + list_values[i + 1]
+        return combined_value.split(" - ", 1), True
+    return list_values[i].split(" - ", 1), False
+
+
+def get_ids_for_multiple_values(cur, data, table_type, table, column1, column2=None, checkFunction=check_existence):
+    list_values = data.split("|")
+    ids = []
+    skip_next = False
+    for i in range(len(list_values)):
+        if(table_type == table_one_value):
+            contrato_id = table_one_value(cur, table, column1, list_values[i])
+        elif (table_type == table_two_values and (not skip_next)):
+            if (table == "classificacoesCpv"): 
+                value = list_values[i].split(" - ", 1)
+            elif (table == "entidades"):
+                value, skip_next = handle_entidades(list_values, i)
+
+            if (len(value) != 2): 
+                print("Valor inválido ou incompleto")
+                continue
+            contrato_id = table_two_values(cur,table, column1, column2, value, checkFunction)
+
+        ids.append(contrato_id)
+    return ids
+
 def add_dataset(sheet):
     # Conecte ao banco de dados SQLite
     con = sqlite3.connect('contratos_publicos.db')
@@ -147,17 +177,18 @@ def add_dataset(sheet):
         contrato_values_id = {}
 
         contrato_values_id["procedimento_id"] = table_one_value(cur, "procedimentos", "descricao", row_data["tipoprocedimento"])
-        
-        tipo_contrato_lista = row_data["tipoContrato"].split("|")
-        tipo_contrato_ids = []
-        for tipo_contrato in tipo_contrato_lista:
-            contrato_id = table_one_value(cur, "tiposContrato", "descricao", tipo_contrato)
-            tipo_contrato_ids.append(contrato_id)
-        contrato_values_id["tipoContrato_id"] = tipo_contrato_ids
-
+        contrato_values_id["tipoContrato_id"] = get_ids_for_multiple_values(cur, row_data["tipoContrato"], table_one_value, "tiposContrato", "descricao")
         contrato_values_id["fundamentacao_id"] = table_one_value(cur, "fundamentacoes", "fundamentacao", row_data["fundamentacao"])
-        contrato_values_id["cpv_id"] = table_two_values(cur, "classificacoesCpv", "codigo", "descricao", row_data["cpv"].split(" - ", 1))
+        contrato_values_id["cpv_id"] = get_ids_for_multiple_values(cur, row_data["cpv"], table_two_values, "classificacoesCpv", "codigo", "descricao")
         [municipios_id, paises_id] = table_local(cur, row_data["localExecucao"])
+        #print(row_data["adjudicante"])
+        adjudicante_id = get_ids_for_multiple_values(cur, row_data["adjudicante"], table_two_values, "entidades", "nif", "designacao", check_existence_two_values)
+        #if(len(adjudicante_id)> 1): print(row_data["adjudicante"])
+        if ( row_data["adjudicatarios"]): 
+            #if len(row_data["adjudicatarios"].split("|")) >1: print("adj "+ row_data["adjudicatarios"])
+            adjudicatarios_id=get_ids_for_multiple_values(cur, row_data["adjudicatarios"], table_two_values, "entidades", "nif", "designacao", check_existence_two_values)
+        else : 
+            adjudicatarios_id = None
         # if len(paises_id)> 1 : 
         #     print(row_data["localExecucao"])
         #     print(paises_id)
@@ -169,12 +200,9 @@ def add_dataset(sheet):
 
 
         # Fazer depois que o contrato está criado
-        adjudicante_id=table_two_values(cur, "entidades", "nif", "designacao", row_data["adjudicante"].split(" - ", 1), check_existence_two_values)
-        if ( row_data["adjudicatarios"]): 
-            adjudicatarios_id=table_two_values(cur, "entidades", "nif", "designacao", row_data["adjudicatarios"].split(" - ", 1), check_existence_two_values)
-        else : 
-            adjudicatarios_id = None
         # Criar uma tabela para relacionar os tipos de contratos
+        # Criar uma tabela para relacionar os cpvs
+        # Criar uma tabela para relacionar adjudicantes e adjudicatarios
 
     con.commit()
     print("Adicionado na BD")
