@@ -105,21 +105,20 @@ def table_local(cur, value):
             #     return None  
     return [municipios, paises]
 
-# def table_contrato(cur, values, ids):
-#         for key, value in values:
-#             values[key] = sanitize_text_input(value)
+def table_contrato(cur, values, ids):
+        for key, value in values.items():
+            values[key] = sanitize_text_input(value)
+        found_row = check_existence(cur, "contratos", "idContrato", values["idcontrato"])
 
-#         found_row = check_existence(cur, "contratos", "idContrato", value["idcontrato"])
+        if (found_row): return found_row[0]
+        
+        query = f"""
+            INSERT INTO contratos (idContrato, objetoContrato, dataPublicacao, dataCelebracaoContrato , precoContratual, prazoExecucao, procedimentoCentralizado, tipoProcedimento, fundamentacao ) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+        """
 
-    
-#         query = f"""
-#             INSERT INTO contratos (idContrato, objetoContrato, dataPublicacao, dataCelebracaoContrato , precoContratual, prazoExecucao , procedimentoCentralizado, tipoProcedimento , tipoContrato , cpv, fundamentacao ) 
-#             VALUES (?, ?);
-#         """
-
-#         values["idcontrato"], values["objectoContrato"], values["dataPublicacao"], "dataCelebracaoContrato": values["dataCelebracaoContrato"], "precoContratual": values["precoContratual"], "prazoExecucao": values["prazoExecucao"], "ProcedimentoCentralizado": values["ProcedimentoCentralizado"]}
-#         cur.execute(query, (value1, value2))
-#         return cur.lastrowid
+        cur.execute(query, (values["idcontrato"], values["objectoContrato"], values["dataPublicacao"], values["dataCelebracaoContrato"], values["precoContratual"], values["prazoExecucao"], values["ProcedimentoCentralizado"], ids["procedimento_id"], ids["fundamentacao_id"]))
+        return cur.lastrowid
 
 
 # def insert
@@ -154,6 +153,38 @@ def get_ids_for_multiple_values(cur, data, table_type, table, column1, column2=N
         ids.append(contrato_id)
     return ids
 
+def new_contract(cur, row_data):
+    contrato_values_id = {}
+
+    contrato_values_id["procedimento_id"] = table_one_value(cur, "procedimentos", "descricao", row_data["tipoprocedimento"])
+    contrato_values_id["tipoContrato_id"] = get_ids_for_multiple_values(cur, row_data["tipoContrato"], table_one_value, "tiposContrato", "descricao")
+    contrato_values_id["fundamentacao_id"] = table_one_value(cur, "fundamentacoes", "fundamentacao", row_data["fundamentacao"])
+    contrato_values_id["cpv_id"] = get_ids_for_multiple_values(cur, row_data["cpv"], table_two_values, "classificacoesCpv", "codigo", "descricao")
+    [municipios_id, paises_id] = table_local(cur, row_data["localExecucao"])
+    #print(row_data["adjudicante"])
+    adjudicante_id = get_ids_for_multiple_values(cur, row_data["adjudicante"], table_two_values, "entidades", "nif", "designacao", check_existence_two_values)
+    #if(len(adjudicante_id)> 1): print(row_data["adjudicante"])
+    if ( row_data["adjudicatarios"]): 
+        #if len(row_data["adjudicatarios"].split("|")) >1: print("adj "+ row_data["adjudicatarios"])
+        adjudicatarios_id=get_ids_for_multiple_values(cur, row_data["adjudicatarios"], table_two_values, "entidades", "nif", "designacao", check_existence_two_values)
+    else : 
+        adjudicatarios_id = None
+    # if len(paises_id)> 1 : 
+    #     print(row_data["localExecucao"])
+    #     print(paises_id)
+    #     print()
+
+    #criando contrato
+    values_contrato = {"idcontrato": row_data["idcontrato"], "objectoContrato": row_data["objectoContrato"], "dataPublicacao": row_data["dataPublicacao"], "dataCelebracaoContrato": row_data["dataCelebracaoContrato"], "precoContratual": row_data["precoContratual"], "prazoExecucao": row_data["prazoExecucao"], "ProcedimentoCentralizado": row_data["ProcedimentoCentralizado"]}
+    table_contrato(cur, values_contrato, contrato_values_id)
+
+
+    # Fazer depois que o contrato está criado
+    # Criar uma tabela para relacionar os tipos de contratos
+    # Criar uma tabela para relacionar os cpvs
+    # Criar uma tabela para relacionar adjudicantes e adjudicatarios
+
+
 def add_dataset(sheet):
     # Conecte ao banco de dados SQLite
     con = sqlite3.connect('contratos_publicos.db')
@@ -173,36 +204,8 @@ def add_dataset(sheet):
             zip(headers, row) - combina a lista headers e row, em pares (chave, valor)
             dict - transforma essa combinação em um dicionario {chave: valor}
         """
-
-        contrato_values_id = {}
-
-        contrato_values_id["procedimento_id"] = table_one_value(cur, "procedimentos", "descricao", row_data["tipoprocedimento"])
-        contrato_values_id["tipoContrato_id"] = get_ids_for_multiple_values(cur, row_data["tipoContrato"], table_one_value, "tiposContrato", "descricao")
-        contrato_values_id["fundamentacao_id"] = table_one_value(cur, "fundamentacoes", "fundamentacao", row_data["fundamentacao"])
-        contrato_values_id["cpv_id"] = get_ids_for_multiple_values(cur, row_data["cpv"], table_two_values, "classificacoesCpv", "codigo", "descricao")
-        [municipios_id, paises_id] = table_local(cur, row_data["localExecucao"])
-        #print(row_data["adjudicante"])
-        adjudicante_id = get_ids_for_multiple_values(cur, row_data["adjudicante"], table_two_values, "entidades", "nif", "designacao", check_existence_two_values)
-        #if(len(adjudicante_id)> 1): print(row_data["adjudicante"])
-        if ( row_data["adjudicatarios"]): 
-            #if len(row_data["adjudicatarios"].split("|")) >1: print("adj "+ row_data["adjudicatarios"])
-            adjudicatarios_id=get_ids_for_multiple_values(cur, row_data["adjudicatarios"], table_two_values, "entidades", "nif", "designacao", check_existence_two_values)
-        else : 
-            adjudicatarios_id = None
-        # if len(paises_id)> 1 : 
-        #     print(row_data["localExecucao"])
-        #     print(paises_id)
-        #     print()
-
-        #criando contrato
-        # values_contrato = {"idcontrato": row_data["idcontrato"], "objectoContrato": row_data["objectoContrato"], "dataPublicacao": row_data["dataPublicacao"], "dataCelebracaoContrato": row_data["dataCelebracaoContrato"], "precoContratual": row_data["precoContratual"], "prazoExecucao": row_data["prazoExecucao"], "ProcedimentoCentralizado": row_data["ProcedimentoCentralizado"]}
-        # table_contrato(cur, values_contrato, contrato_values_id)
-
-
-        # Fazer depois que o contrato está criado
-        # Criar uma tabela para relacionar os tipos de contratos
-        # Criar uma tabela para relacionar os cpvs
-        # Criar uma tabela para relacionar adjudicantes e adjudicatarios
+        # TODO Melhor fazer a checagem da existencia do contrato do lado de fora pq ai não adiciona o que já foi adicionado, já que garantidamente tudo que ta no contrato esta na bd
+        new_contract(cur, row_data)
 
     con.commit()
     print("Adicionado na BD")

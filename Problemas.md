@@ -4,6 +4,18 @@
 
 - vi que pode ser que tenha mais que uma fundamentação, mas no caso do nosso dataset isso nao ocorre
 
+Menor Espaço de Armazenamento:
+
+Um INTEGER ocupa menos espaço do que uma string. Por exemplo:
+Em muitos bancos de dados, um INTEGER de até 10 dígitos ocupa 4 ou 8 bytes.
+Uma string de 10 caracteres (usando VARCHAR(10)) pode ocupar até 10 bytes ou mais , dependendo da codificação, como UTF-8
+
+
+SQLite nao tem tipo bool
+SQLite does not have a separate Boolean storage class. Instead, Boolean values are stored as integers 0 (false) and 1 (true).
+
+Tem mais ou menos umas 140 linhas de fundamentações sem valeiros, acho que nesse caso não há necessidade de criar uma nova tabela, pois em comparação ao todo é menos de 1% dos casos
+
 ### Problema 1: Múltiplos locais por contrato
 Em alguns casos, um contrato pode conter mais de uma localidade.
 

@@ -85,14 +85,10 @@ cur.execute("""
         dataCelebracaoContrato  DATETIME NOT NULL,
         precoContratual REAL NOT NULL,
         prazoExecucao INTEGER NOT NULL,
-        procedimentoCentralizado BOOLEAN NOT NULL,
+        procedimentoCentralizado INTEGER NOT NULL,
         tipoProcedimento INTEGER NOT NULL,
-        tipoContrato INTEGER NOT NULL,
-        cpv TEXT NOT NULL,
-        fundamentacao INTEGER NOT NULL,
+        fundamentacao INTEGER,
         FOREIGN KEY(tipoProcedimento) REFERENCES procedimentos(codigo),
-        FOREIGN KEY(tipoContrato) REFERENCES tiposContrato(codigo),
-        FOREIGN KEY(cpv) REFERENCES classificacoesCpv(codigo),
         FOREIGN KEY(fundamentacao) REFERENCES fundamentacoes(codigo)
     );
     """)
