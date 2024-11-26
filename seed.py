@@ -155,7 +155,7 @@ def get_ids_for_multiple_values(cur, data, table_type, table, column1, column2=N
 
 def associate_values_with_contract(cur, table, column1, column2, idcontrato, idlist):
     for id in idlist:
-        table_two_values(cur,table, column1, column2, [idcontrato, id])
+        table_two_values(cur,table, column1, column2, [idcontrato, id], check_existence_two_values)
 
 
 
@@ -163,10 +163,10 @@ def new_contract(cur, row_data):
     contrato_values_id = {}
 
     contrato_values_id["procedimento_id"] = table_one_value(cur, "procedimentos", "descricao", row_data["tipoprocedimento"])
-    contrato_values_id["tipoContrato_id"] = get_ids_for_multiple_values(cur, row_data["tipoContrato"], table_one_value, "tiposContrato", "descricao")
+    contrato_values_id["contratoTipoClassificacoes_id"] = get_ids_for_multiple_values(cur, row_data["tipoContrato"], table_one_value, "contratoTipoClassificacoes", "descricao")
     contrato_values_id["fundamentacao_id"] = table_one_value(cur, "fundamentacoes", "fundamentacao", row_data["fundamentacao"])
     contrato_values_id["cpv_id"] = get_ids_for_multiple_values(cur, row_data["cpv"], table_two_values, "classificacoesCpv", "codigo", "descricao")
-    [municipios_id, paises_id] = table_local(cur, row_data["localExecucao"])
+    [contrato_values_id["municipios_id"], contrato_values_id["paises_id"]] = table_local(cur, row_data["localExecucao"])
     adjudicante_id = get_ids_for_multiple_values(cur, row_data["adjudicante"], table_two_values, "entidades", "nif", "designacao", check_existence_two_values)
     if ( row_data["adjudicatarios"]): 
         adjudicatarios_id=get_ids_for_multiple_values(cur, row_data["adjudicatarios"], table_two_values, "entidades", "nif", "designacao", check_existence_two_values)
@@ -183,13 +183,14 @@ def new_contract(cur, row_data):
     contrato_id = table_contrato(cur, values_contrato, contrato_values_id)
 
     # Fazer depois que o contrato está criado - ligações com a tabela contrato
-    # Criar uma tabela para relacionar adjudicantes e adjudicatarios
     associate_values_with_contract(cur, "adjudicantes", "contrato", "entidade", contrato_id, adjudicante_id)
-    if(adjudicatarios_id): associate_values_with_contract(cur, "adjudicatarios", "contrato", "entidade", contrato_id, adjudicatarios_id)
-    
-    #local de execucao, tipo de contrato, cpv, entidades
-    # Criar uma tabela para relacionar os tipos de contratos
-    # Criar uma tabela para relacionar os cpvs
+    if(adjudicatarios_id): associate_values_with_contract(cur, "adjudicatarios", "contrato", "entidade", contrato_id, adjudicatarios_id) 
+    associate_values_with_contract(cur, "tiposContrato", "contrato", "tipoContrato", contrato_id, contrato_values_id["contratoTipoClassificacoes_id"])
+    associate_values_with_contract(cur, "cpvContratos", "contrato", "cpv", contrato_id, contrato_values_id["cpv_id"])
+    if contrato_values_id["municipios_id"]: associate_values_with_contract(cur, "municipioDeExecucao", "contrato", "municipio", contrato_id, contrato_values_id["municipios_id"])
+    if contrato_values_id["paises_id"]: associate_values_with_contract(cur, "paisDeExecucao", "contrato", "pais", contrato_id, contrato_values_id["paises_id"])
+
+
 
 
 def add_dataset(sheet):

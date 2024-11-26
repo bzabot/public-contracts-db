@@ -4,6 +4,8 @@
 
 - vi que pode ser que tenha mais que uma fundamentação, mas no caso do nosso dataset isso nao ocorre
 
+- Alterar nome das tabelas para que de para fazer natural join
+- falta descricao acordo quadro
 Menor Espaço de Armazenamento:
 
 Um INTEGER ocupa menos espaço do que uma string. Por exemplo:

@@ -13,9 +13,9 @@ cur.execute("""
     );
     """)
 
-# creating table "tiposContrato"
+# creating table "contratoTipoClassificacoes"
 cur.execute("""
-    CREATE TABLE IF NOT EXISTS tiposContrato (
+    CREATE TABLE IF NOT EXISTS contratoTipoClassificacoes (
         codigo INTEGER PRIMARY KEY AUTOINCREMENT,
         descricao TEXT NOT NULL
     );
@@ -65,14 +65,23 @@ cur.execute("""
     );
     """)
 
-# creating table "locaisDeExecucao"
 cur.execute("""
-    CREATE TABLE IF NOT EXISTS locaisDeExecucao (
+    CREATE TABLE IF NOT EXISTS municipioDeExecucao (
         contrato INTEGER NOT NULL,
         municipio INTEGER NOT NULL,
         PRIMARY KEY (contrato, municipio),
         FOREIGN KEY(contrato) REFERENCES contratos(idContrato),
         FOREIGN KEY(municipio) REFERENCES municipios(codigo)
+    );
+    """)
+
+cur.execute("""
+    CREATE TABLE IF NOT EXISTS paisDeExecucao (
+        contrato INTEGER NOT NULL,
+        pais INTEGER NOT NULL,
+        PRIMARY KEY (contrato, pais),
+        FOREIGN KEY(contrato) REFERENCES contratos(idContrato),
+        FOREIGN KEY(pais) REFERENCES paises(codigo)
     );
     """)
 
@@ -121,6 +130,26 @@ cur.execute("""
         PRIMARY KEY (contrato, entidade),
         FOREIGN KEY(contrato) REFERENCES contratos(idContrato),
         FOREIGN KEY(entidade) REFERENCES entidades(codigo)
+    );
+    """)
+
+cur.execute("""
+    CREATE TABLE IF NOT EXISTS tiposContrato (
+        contrato INTEGER NOT NULL,
+        tipoContrato INTEGER NOT NULL,
+        PRIMARY KEY (contrato, tipoContrato),
+        FOREIGN KEY(contrato) REFERENCES contratos(idContrato),
+        FOREIGN KEY(tipoContrato) REFERENCES contratoTipoClassificacoes(codigo)
+    );
+    """)
+
+cur.execute("""
+    CREATE TABLE IF NOT EXISTS cpvContratos (
+        contrato INTEGER NOT NULL,
+        cpv INTEGER NOT NULL,
+        PRIMARY KEY (contrato, cpv),
+        FOREIGN KEY(contrato) REFERENCES contratos(idContrato),
+        FOREIGN KEY(cpv) REFERENCES classificacoesCpv(codigo)
     );
     """)
 
