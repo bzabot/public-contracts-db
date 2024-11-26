@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Página-1" id="wmexFkZFV4C5G2_LSLB-">
-        <mxGraphModel dx="2845" dy="1608" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+        <mxGraphModel dx="2242" dy="1408" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -13,7 +13,7 @@
                 <mxCell id="dAuswY9n_uoiKKatBOaa-105" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="24jAjjag3Yym39tfX2p5-30" target="dAuswY9n_uoiKKatBOaa-24" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="16" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="24jAjjag3Yym39tfX2p5-30" target="dAuswY9n_uoiKKatBOaa-29">
+                <mxCell id="16" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="24jAjjag3Yym39tfX2p5-30" target="dAuswY9n_uoiKKatBOaa-29" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="24jAjjag3Yym39tfX2p5-30" value="Contratos" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
@@ -199,7 +199,7 @@
                     <mxGeometry y="50" width="40" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="dAuswY9n_uoiKKatBOaa-116" value="DescricaoAcordoQuadro" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
-                    <mxGeometry x="-1430" y="-542" width="244" height="80" as="geometry">
+                    <mxGeometry x="-1310" y="-510" width="244" height="80" as="geometry">
                         <mxRectangle x="290" y="50" width="90" height="30" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
@@ -214,15 +214,6 @@
                 </mxCell>
                 <mxCell id="dAuswY9n_uoiKKatBOaa-120" value="&lt;div style=&quot;text-align: left; line-height: 120%;&quot;&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="dAuswY9n_uoiKKatBOaa-116" vertex="1">
                     <mxGeometry y="60" width="50" height="20" as="geometry"/>
-                </mxCell>
-                <mxCell id="dAuswY9n_uoiKKatBOaa-122" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.008;entryY=0.808;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="dAuswY9n_uoiKKatBOaa-117" target="dAuswY9n_uoiKKatBOaa-13" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <Array as="points">
-                            <mxPoint x="-1100" y="-500"/>
-                            <mxPoint x="-1100" y="-590"/>
-                            <mxPoint x="-997" y="-590"/>
-                        </Array>
-                    </mxGeometry>
                 </mxCell>
                 <mxCell id="dAuswY9n_uoiKKatBOaa-123" value="&lt;font color=&quot;#000000&quot;&gt;COM DUAS TABELAS PARA DESC ACOROD QUADRO&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
                     <mxGeometry x="-985" y="-990" width="220" height="30" as="geometry"/>
@@ -498,6 +489,14 @@
                 <mxCell id="10" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;" parent="1" target="dAuswY9n_uoiKKatBOaa-12" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="-590" y="-862" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="19" style="edgeStyle=none;html=1;entryX=0.53;entryY=0.004;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="dAuswY9n_uoiKKatBOaa-116">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-1000" y="-570" as="sourcePoint"/>
+                        <Array as="points">
+                            <mxPoint x="-1180" y="-570"/>
+                        </Array>
                     </mxGeometry>
                 </mxCell>
             </root>

@@ -57,6 +57,7 @@ def insert_one_value(cur, table, column, value):
     return cur.lastrowid
 
 def table_two_values(cur, table, column1, column2, values, check_function = check_existence):
+
     if not table.isidentifier() or not column1.isidentifier() or not column2.isidentifier():
         raise ValueError("Nomes de tabela ou coluna inválidos")
     
@@ -146,7 +147,14 @@ def add_dataset(sheet):
         contrato_values_id = {}
 
         contrato_values_id["procedimento_id"] = table_one_value(cur, "procedimentos", "descricao", row_data["tipoprocedimento"])
-        contrato_values_id["tipoContrato_id"] = table_one_value(cur, "tiposContrato", "descricao", row_data["tipoContrato"])
+        
+        tipo_contrato_lista = row_data["tipoContrato"].split("|")
+        tipo_contrato_ids = []
+        for tipo_contrato in tipo_contrato_lista:
+            contrato_id = table_one_value(cur, "tiposContrato", "descricao", tipo_contrato)
+            tipo_contrato_ids.append(contrato_id)
+        contrato_values_id["tipoContrato_id"] = tipo_contrato_ids
+
         contrato_values_id["fundamentacao_id"] = table_one_value(cur, "fundamentacoes", "fundamentacao", row_data["fundamentacao"])
         contrato_values_id["cpv_id"] = table_two_values(cur, "classificacoesCpv", "codigo", "descricao", row_data["cpv"].split(" - ", 1))
         [municipios_id, paises_id] = table_local(cur, row_data["localExecucao"])
@@ -159,19 +167,21 @@ def add_dataset(sheet):
         # values_contrato = {"idcontrato": row_data["idcontrato"], "objectoContrato": row_data["objectoContrato"], "dataPublicacao": row_data["dataPublicacao"], "dataCelebracaoContrato": row_data["dataCelebracaoContrato"], "precoContratual": row_data["precoContratual"], "prazoExecucao": row_data["prazoExecucao"], "ProcedimentoCentralizado": row_data["ProcedimentoCentralizado"]}
         # table_contrato(cur, values_contrato, contrato_values_id)
 
+
         # Fazer depois que o contrato está criado
         adjudicante_id=table_two_values(cur, "entidades", "nif", "designacao", row_data["adjudicante"].split(" - ", 1), check_existence_two_values)
         if ( row_data["adjudicatarios"]): 
             adjudicatarios_id=table_two_values(cur, "entidades", "nif", "designacao", row_data["adjudicatarios"].split(" - ", 1), check_existence_two_values)
         else : 
             adjudicatarios_id = None
+        # Criar uma tabela para relacionar os tipos de contratos
 
     con.commit()
     print("Adicionado na BD")
     con.close()
 
 # Carregue o arquivo Excel
-workbook = load_workbook(filename='ContratosPublicos2024.xlsx')
+workbook = load_workbook(filename='dataset/ContratosPublicos2024.xlsx')
 
 # Selecione a planilha ativa
 sheet = workbook.active
