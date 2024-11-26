@@ -16,6 +16,10 @@ SQLite does not have a separate Boolean storage class. Instead, Boolean values a
 
 Tem mais ou menos umas 140 linhas de fundamentações sem valeiros, acho que nesse caso não há necessidade de criar uma nova tabela, pois em comparação ao todo é menos de 1% dos casos
 
+No caso de não ter adjucatarios, colocamos none associado ao contrao ou nao colocamos nada? no momento vou colcoar nada
+
+Tem sempre um adjudicante, adjudicatario pode ser mais de um
+
 ### Problema 1: Múltiplos locais por contrato
 Em alguns casos, um contrato pode conter mais de uma localidade.
 
