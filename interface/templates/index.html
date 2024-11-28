@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Base de dados de Contratos Publicos</h1>
+
+<table>
+  <tr>
+    <th>
+      Objeto
+    </th>
+    <th>
+      Adjudicante
+    </th>
+    <th>
+      Adjudicatario
+    </th>
+    <th>
+      Preço Contratual
+    </th>
+  </tr>
+  {% for c in contratos %}
+  <tr>
+    <td>
+      {{ c.objetoContrato }}
+    </td> 
+    <td>
+      {{ c.adjudicante }}
+    </td> 
+    <td>
+      {{ c.adjudicatario }}
+    </td> 
+    <td>
+      {{ c.precoContratual }}
+    </td> 
+  </tr>
+  {% endfor %}
+</table>
+
+
+{% endblock %}
