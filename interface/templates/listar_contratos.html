@@ -2,38 +2,36 @@
 
 {% block content %}
 
-<h1>Concelhos</h1>
-
+<h1>Contratos</h1>
 <table>
   <tr>
     <th>
-      Distrito
+      Objeto do Contrato
     </th>
     <th>
-      Código
+      Adjudicante
     </th>
     <th>
-      Designação
+      Adjudicatario
     </th>
     <th>
-      Região
+      Preço Contratual
     </th>
   </tr>
-  {% for c in concelhos %}
+  {% for c in contratos %}
   <tr>
     <td>
-      {{ c.distrito }}
+      {{ c.objeto_contrato }}
     </td> 
     <td>
-      {{ c.cod }}
+      {{ c.adjudicante }}
     </td> 
     <td>
-      <a href="/concelhos/{{ c.cod }}/">{{ c.designacao }}</a>
+      {{ c.adjudicatario }}
     </td> 
     <td>
-      {{ c.regiao }}
+      {{ c.preco_contratual | to_euro}}
     </td> 
-
   </tr>
   {% endfor %}
 </table>

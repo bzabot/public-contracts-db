@@ -2,40 +2,35 @@
 
 {% block content %}
 
-<h1>Base de dados de Contratos Publicos</h1>
+<h1>Base de dados de Contratos Públicos</h1>
 
 <table>
   <tr>
     <th>
-      Objeto
+      Número de Contratos
     </th>
     <th>
-      Adjudicante
-    </th>
-    <th>
-      Adjudicatario
-    </th>
-    <th>
-      Preço Contratual
+      Valor Total
     </th>
   </tr>
-  {% for c in contratos %}
   <tr>
     <td>
-      {{ c.objetoContrato }}
+      {{ contratos.n_contratos }}
     </td> 
     <td>
-      {{ c.adjudicante }}
-    </td> 
-    <td>
-      {{ c.adjudicatario }}
-    </td> 
-    <td>
-      {{ c.precoContratual }}
+      {{ contratos.valor_total|to_euro }}
     </td> 
   </tr>
-  {% endfor %}
 </table>
 
+<p>
+  <a href="/contratos">Listar contratos</a>
+</p>
+<p>
+  <a href="/paises">Listar contratos por país</a>
+</p>
+<p>
+  <a href="/adjudicatarios">Listar adjudicatarios</a>
+</p>
 
 {% endblock %}

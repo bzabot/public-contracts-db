@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ pais.nome }}</h1>
+
+<table>
+  <tr>
+    <th>
+      Adjudicante
+    </th>
+    <th>
+      Adjudicatario
+    </th>
+    <th>
+      Data Publicacao
+    </th>
+    <th>
+      Prazo Execução
+    </th>
+    <th>
+      Preço Contratual
+    </th>
+  </tr>
+  {% for c in contratos %}
+  <tr>
+    <td>
+      {{ c.adjudicante }}
+    </td>
+    <td>
+      {{ c.adjudicatario }}
+    </td>
+    <td>
+      {{ c.dataPublicacao }}
+    </td>
+    <td>
+      {{ c.prazoExecucao  }}
+    </td>
+    <td>
+      {{ c.precoContratual | to_euro}}
+    </td>
+    {% endfor %}
+  </tr>
+</table>
+
+
+{% endblock %}

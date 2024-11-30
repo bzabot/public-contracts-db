@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ adjudicatario.designacao }}</h1>
+
+<table>
+  <tr>
+    <th>
+      Objeto Contratual
+    </th>
+    <th>
+      Data Publicacao
+    </th>
+    <th>
+      Prazo Execução
+    </th>
+    <th>
+      Preço Contratual
+    </th>
+  </tr>
+  {% for c in contratos %}
+  <tr>
+    <td>
+      {{ c.objetoContrato }}
+    </td>
+    <td>
+      {{ c.dataPublicacao }}
+    </td>
+    <td>
+      {{ c.prazoExecucao  }}
+    </td>
+    <td>
+      {{ c.precoContratual | to_euro}}
+    </td>
+    {% endfor %}
+  </tr>
+</table>
+
+
+{% endblock %}
