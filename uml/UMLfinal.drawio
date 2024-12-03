@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Página-1" id="wmexFkZFV4C5G2_LSLB-">
-        <mxGraphModel dx="583" dy="1407" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFFFFF" math="0" shadow="0">
+        <mxGraphModel dx="379" dy="1464" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFFFFF" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -41,7 +41,7 @@
                 <mxCell id="24jAjjag3Yym39tfX2p5-21" value="adjudicante" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="303" y="-693" width="60" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="24jAjjag3Yym39tfX2p5-22" value="adjudicatarios" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                <mxCell id="24jAjjag3Yym39tfX2p5-22" value="adjudicatario" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="478" y="-693" width="60" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="24jAjjag3Yym39tfX2p5-28" value="TipoProcedimento" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -61,7 +61,7 @@
                 <mxCell id="24jAjjag3Yym39tfX2p5-33" value="CPV" style="swimlane;whiteSpace=wrap;html=1;startSize=30;" parent="1" vertex="1">
                     <mxGeometry x="30" y="-865" width="200" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="24jAjjag3Yym39tfX2p5-34" value="codigo: String&lt;div&gt;descricao: String&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;" parent="24jAjjag3Yym39tfX2p5-33" vertex="1">
+                <mxCell id="24jAjjag3Yym39tfX2p5-34" value="codigoCPV: String&lt;div&gt;descricao: String&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;" parent="24jAjjag3Yym39tfX2p5-33" vertex="1">
                     <mxGeometry y="23" width="200" height="37" as="geometry"/>
                 </mxCell>
                 <mxCell id="24jAjjag3Yym39tfX2p5-38" value="TiposDescricaoAcordoQuadro" style="swimlane;whiteSpace=wrap;html=1;startSize=30;align=center;" parent="1" vertex="1">
