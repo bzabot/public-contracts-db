@@ -4,11 +4,6 @@ from openpyxl import load_workbook
 
 
 def sanitize_text_input(input):
-    # Remove any character that is not alphanumeric or a space
-    #sanitized = re.sub(r'[^a-zA-Z0-9\s]', '', s)
-    """
-    Acho que pelo fato de ter artigos que usam algum tipo de pontuação não da para usar esse regex, tem que pensar em outro, se for sanitizar
-    """
     if (not(input)):
         return False
 
@@ -121,12 +116,9 @@ def table_contrato(cur, values, ids):
         return cur.lastrowid
 
 
-# def insert
-
 def handle_entidades(list_values, i):
     """Manipula entradas para o caso especial de 'entidades'."""
     if i != len(list_values) - 1 and len(list_values[i + 1].split(" - ", 1)) == 1:
-        # Junta o próximo valor com o atual e indica que a próxima entrada deve ser pulada
         combined_value = list_values[i] + "|" + list_values[i + 1]
         return combined_value.split(" - ", 1), True
     return list_values[i].split(" - ", 1), False
@@ -194,24 +186,14 @@ def new_contract(cur, row_data):
 
 
 def add_dataset(sheet):
-    # Conecte ao banco de dados SQLite
-    con = sqlite3.connect('contratos_publicos.db')
+    con = sqlite3.connect('../contratos_publicos.db')
     cur = con.cursor()
 
-    headers = [cell.value for cell in sheet[1]] # pega a primeira linha do excel (o título das colunas), não começa com 0 pois no excel as linhas são indexadas a partir de 1 
+    headers = [cell.value for cell in sheet[1]] 
 
     # Itera sobre as linhas da planilha, começando na segunda linha, pois a primeira é o cabeçalho
     for row in sheet.iter_rows(min_row=2, values_only=True):
-        """
-            sheet.iter_rows() - itera sobre as linhas da planilha e retorna em cada uma linha uma tupla com as celulas ou valores de cada coluna
-            min_row=2 - a iteração começa na linha 2
-            values_only=True - retorna só o valor da celula, não o objeto celula
-        """
-        row_data = dict(zip(headers, row)) #onde associamos os valores de cada coluna com o header correspondente
-        """
-            zip(headers, row) - combina a lista headers e row, em pares (chave, valor)
-            dict - transforma essa combinação em um dicionario {chave: valor}
-        """
+        row_data = dict(zip(headers, row))     
         # TODO Melhor fazer a checagem da existencia do contrato do lado de fora pq ai não adiciona o que já foi adicionado, já que garantidamente tudo que ta no contrato esta na bd
         new_contract(cur, row_data)
 
@@ -220,7 +202,7 @@ def add_dataset(sheet):
     con.close()
 
 # Carregue o arquivo Excel
-workbook = load_workbook(filename='dataset/ContratosPublicos2024.xlsx')
+workbook = load_workbook(filename='../dataset/ContratosPublicos2024.xlsx')
 
 # Selecione a planilha ativa
 sheet = workbook.active
