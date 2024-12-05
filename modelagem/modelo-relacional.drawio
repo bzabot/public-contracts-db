@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Página-1" id="wmexFkZFV4C5G2_LSLB-">
-        <mxGraphModel dx="3553" dy="1538" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+        <mxGraphModel dx="2991" dy="1345" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -201,7 +201,7 @@
                         <mxRectangle x="290" y="50" width="90" height="30" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="01Oeq3N-594YPHe-8Gk3-20" value="idContrato: INTEGER&lt;div&gt;idAdjudicante: INTEGER&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;" parent="01Oeq3N-594YPHe-8Gk3-19" vertex="1">
+                <mxCell id="01Oeq3N-594YPHe-8Gk3-20" value="idContrato: INTEGER&lt;div&gt;idEntidade: INTEGER&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;" parent="01Oeq3N-594YPHe-8Gk3-19" vertex="1">
                     <mxGeometry x="50" y="23" width="190" height="37" as="geometry"/>
                 </mxCell>
                 <mxCell id="01Oeq3N-594YPHe-8Gk3-21" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;PK, FK&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;PK, FK&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="01Oeq3N-594YPHe-8Gk3-19" vertex="1">
