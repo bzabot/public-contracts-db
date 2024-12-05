@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Search Result</h1>
+
+{% if data %}
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Objeto Contrato</th>
+    <th>Preço Contratual</th>
+  </tr>
+  <tr>
+    <td>{{ data.idContrato }}</td>
+    <td>{{ data.objetoContrato }}</td>
+    <td>{{ data.precoContratual|to_euro }}</td>
+  </tr>
+</table>
+{% else %}
+<p>No data found for the given ID.</p>
+{% endif %}
+
+{% endblock %}

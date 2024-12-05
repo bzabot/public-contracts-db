@@ -1,7 +1,7 @@
 import datetime
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
-from flask import render_template, Flask
+from flask import render_template, Flask, request
 import db
 import locale
 locale.setlocale(locale.LC_ALL, 'en_US.UTF-8') 
@@ -107,6 +107,19 @@ def adjudicatario(codigo):
                             adjudicatario=adjudicatario,
                             contratos=contratos)
 
+
+@APP.route('/search')
+def search():
+    id = request.args.get('id')
+    if id:
+        data = db.execute(''' 
+            SELECT idContrato , objetoContrato, precoContratual
+            FROM contratos 
+            WHERE idContrato = ?''', [id]).fetchone()
+    if data:
+        return render_template('search_result.html', data=data)
+    else:
+        return "Id não encontrado."
 
 # FILTROS
 @APP.template_filter('to_euro')
