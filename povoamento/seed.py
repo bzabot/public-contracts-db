@@ -103,16 +103,16 @@ def table_local(cur, value):
 def table_contrato(cur, values, ids):
         for key, value in values.items():
             values[key] = sanitize_text_input(value)
-        found_row = check_existence(cur, "contratos", "idContrato", values["idcontrato"])
+        found_row = check_existence(cur, "Contratos", "idContrato", values["idcontrato"])
 
         if (found_row): return found_row[0]
         
         query = f"""
-            INSERT INTO contratos (idContrato, objetoContrato, dataPublicacao, dataCelebracaoContrato , precoContratual, prazoExecucao, procedimentoCentralizado, tipoProcedimento, fundamentacao ) 
+            INSERT INTO contratos (idContrato, objetoContrato, dataPublicacao, dataCelebracaoContrato , precoContratual, procedimentoCentralizado, prazoExecucao, idProcedimento, idAdjudicante) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
         """
 
-        cur.execute(query, (values["idcontrato"], values["objectoContrato"], values["dataPublicacao"], values["dataCelebracaoContrato"], values["precoContratual"], values["prazoExecucao"], values["ProcedimentoCentralizado"], ids["procedimento_id"], ids["fundamentacao_id"]))
+        cur.execute(query, (values["idcontrato"], values["objectoContrato"], values["dataPublicacao"], values["dataCelebracaoContrato"], values["precoContratual"], values["ProcedimentoCentralizado"], values["prazoExecucao"], ids["idProcedimento"], ids["idAdjudicante"][0]))
         return cur.lastrowid
 
 
@@ -132,9 +132,9 @@ def get_ids_for_multiple_values(cur, data, table_type, table, column1, column2=N
         if(table_type == table_one_value):
             contrato_id = table_one_value(cur, table, column1, list_values[i])
         elif (table_type == table_two_values and (not skip_next)):
-            if (table == "classificacoesCpv"): 
+            if (table == "CPVs"):
                 value = list_values[i].split(" - ", 1)
-            elif (table == "entidades"):
+            elif (table == "Entidades"):
                 value, skip_next = handle_entidades(list_values, i)
 
             if (len(value) != 2): 
@@ -154,33 +154,30 @@ def associate_values_with_contract(cur, table, column1, column2, idcontrato, idl
 def new_contract(cur, row_data):
     contrato_values_id = {}
 
-    contrato_values_id["procedimento_id"] = table_one_value(cur, "procedimentos", "descricao", row_data["tipoprocedimento"])
-    contrato_values_id["contratoTipoClassificacoes_id"] = get_ids_for_multiple_values(cur, row_data["tipoContrato"], table_one_value, "contratoTipoClassificacoes", "descricao")
-    contrato_values_id["fundamentacao_id"] = table_one_value(cur, "fundamentacoes", "fundamentacao", row_data["fundamentacao"])
-    contrato_values_id["cpv_id"] = get_ids_for_multiple_values(cur, row_data["cpv"], table_two_values, "classificacoesCpv", "codigo", "descricao")
-    [contrato_values_id["municipios_id"], contrato_values_id["paises_id"]] = table_local(cur, row_data["localExecucao"])
-    adjudicante_id = get_ids_for_multiple_values(cur, row_data["adjudicante"], table_two_values, "entidades", "nif", "designacao", check_existence_two_values)
+    # tabelas simples
+    contrato_values_id["codigoCPV"] = get_ids_for_multiple_values(cur, row_data["cpv"], table_two_values, "CPVs", "codigoCPV", "descricao")
+    # TODO - Provavelmente vai ter que criar algo separado
+    #contrato_values_id["idAcordoQuadro"] =  get_ids_for_multiple_values(cur, row_data["DescrAcordoQuadro"], table_two_values, "DescrAcordoQuadro", "identificador", "descricao")
+    contrato_values_id["idProcedimento"] = table_one_value(cur, "TiposProcedimentos", "tipo", row_data["tipoprocedimento"])
+    contrato_values_id["idTipoContrato"] = get_ids_for_multiple_values(cur, row_data["tipoContrato"], table_one_value, "TiposContratos", "tipo")
+    #contrato_values_id["fundamentacao_id"] = table_one_value(cur, "fundamentacoes", "fundamentacao", row_data["fundamentacao"])
+    # [contrato_values_id["municipios_id"], contrato_values_id["paises_id"]] = table_local(cur, row_data["localExecucao"])
+    contrato_values_id["idAdjudicante"] = get_ids_for_multiple_values(cur, row_data["adjudicante"], table_two_values, "Entidades", "nif", "designacao", check_existence_two_values)
     if ( row_data["adjudicatarios"]): 
-        adjudicatarios_id=get_ids_for_multiple_values(cur, row_data["adjudicatarios"], table_two_values, "entidades", "nif", "designacao", check_existence_two_values)
+        idAdjudicatarios=get_ids_for_multiple_values(cur, row_data["adjudicatarios"], table_two_values, "Entidades", "nif", "designacao", check_existence_two_values)
     else : 
-        adjudicatarios_id = None
+        idAdjudicatarios = None
 
-    # if len(paises_id)> 1 : 
-    #     print(row_data["localExecucao"])
-    #     print(paises_id)
-    #     print()
+    # criando contrato
+    values_contrato = {"idcontrato": row_data["idcontrato"], "objectoContrato": row_data["objectoContrato"], "dataPublicacao": row_data["dataPublicacao"], "dataCelebracaoContrato": row_data["dataCelebracaoContrato"], "precoContratual": row_data["precoContratual"], "ProcedimentoCentralizado": row_data["ProcedimentoCentralizado"], "prazoExecucao": row_data["prazoExecucao"]}
+    idContrato = table_contrato(cur, values_contrato, contrato_values_id)
 
-    #criando contrato
-    values_contrato = {"idcontrato": row_data["idcontrato"], "objectoContrato": row_data["objectoContrato"], "dataPublicacao": row_data["dataPublicacao"], "dataCelebracaoContrato": row_data["dataCelebracaoContrato"], "precoContratual": row_data["precoContratual"], "prazoExecucao": row_data["prazoExecucao"], "ProcedimentoCentralizado": row_data["ProcedimentoCentralizado"]}
-    contrato_id = table_contrato(cur, values_contrato, contrato_values_id)
-
-    # Fazer depois que o contrato está criado - ligações com a tabela contrato
-    associate_values_with_contract(cur, "adjudicantes", "contrato", "entidade", contrato_id, adjudicante_id)
-    if(adjudicatarios_id): associate_values_with_contract(cur, "adjudicatarios", "contrato", "entidade", contrato_id, adjudicatarios_id) 
-    associate_values_with_contract(cur, "tiposContrato", "contrato", "tipoContrato", contrato_id, contrato_values_id["contratoTipoClassificacoes_id"])
-    associate_values_with_contract(cur, "cpvContratos", "contrato", "cpv", contrato_id, contrato_values_id["cpv_id"])
-    if contrato_values_id["municipios_id"]: associate_values_with_contract(cur, "municipioDeExecucao", "contrato", "municipio", contrato_id, contrato_values_id["municipios_id"])
-    if contrato_values_id["paises_id"]: associate_values_with_contract(cur, "paisDeExecucao", "contrato", "pais", contrato_id, contrato_values_id["paises_id"])
+    # Tabelas com duas chaves primarias
+    associate_values_with_contract(cur, "CPVContratos", "idContrato", "codigoCPV", idContrato, contrato_values_id["codigoCPV"])
+    associate_values_with_contract(cur, "ClassificacaoContratos", "idContrato", "idTipoContrato", idContrato, contrato_values_id["idTipoContrato"])
+    if(idAdjudicatarios): associate_values_with_contract(cur, "Adjudicatarios", "idContrato", "idEntidade", idContrato, idAdjudicatarios) 
+    # TODO
+    #if contrato_values_id["LocaisDeExecucao"]: associate_values_with_contract(cur, "LocaisDeExecucao", "idContrato", "idMunicipio", idContrato, contrato_values_id["idMunicipio"])
 
 
 

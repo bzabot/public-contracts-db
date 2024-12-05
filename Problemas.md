@@ -2,6 +2,9 @@
 ## Local de execução
 - Colunas que tem mais de um valor - local de execucao, tipo de contrato, cpv, entidades
 
+
+Procedimento centralizado esta como int pois no sqlite nao tem bool, então vamos representar como 1 ou 0
+
 - vi que pode ser que tenha mais que uma fundamentação, mas no caso do nosso dataset isso nao ocorre
 nem todos tem fundamentacao
 - Alterar nome das tabelas para que de para fazer natural join

@@ -25,8 +25,8 @@ cur.execute("""
 
 # descricao acordo quadro
 cur.execute("""
-    CREATE TABLE IF NOT EXISTS DescricaoAcordoQuadro (
-        idDescricaoAcordoQuadro TEXT PRIMARY KEY,
+    CREATE TABLE IF NOT EXISTS DescrAcordoQuadro (
+        idAcordoQuadro TEXT PRIMARY KEY,
         identificador TEXT,
         descricao TEXT NOT NULL
     );
@@ -35,10 +35,10 @@ cur.execute("""
 cur.execute("""
     CREATE TABLE IF NOT EXISTS AcordoQuadroContratos (
         idContrato INTEGER NOT NULL,
-        idDescricaoAcordoQuadro INTEGER NOT NULL,
-        PRIMARY KEY (idcontrato, idDescricaoAcordoQuadro),
+        idAcordoQuadro INTEGER NOT NULL,
+        PRIMARY KEY (idcontrato, idAcordoQuadro),
         FOREIGN KEY(idContrato) REFERENCES Contratos(idContrato),
-        FOREIGN KEY(idDescricaoAcordoQuadro) REFERENCES DescricaoAcordoQuadro(idDescricaoAcordoQuadro)
+        FOREIGN KEY(idAcordoQuadro) REFERENCES DescrAcordoQuadro(idAcordoQuadro)
     );
     """)
 
