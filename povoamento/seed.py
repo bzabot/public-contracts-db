@@ -170,7 +170,6 @@ def new_contract(cur, row_data):
         associate_values_with_contract(cur, "Adjudicatarios", "idContrato", "idEntidade", idContrato, idAdjudicatarios) 
 
     # Tabelas com duas chaves primarias
-    #TODO CODIGOCPV NÃO ESTA SENDO PASSADO CORRETAMENTE
     associate_values_with_contract(cur, "CPVContratos", "idContrato", "codigoCPV", idContrato, contrato_values_id["codigoCPV"]) 
     associate_values_with_contract(cur, "ClassificacaoContratos", "idContrato", "idTipoContrato", idContrato, contrato_values_id["idTipoContrato"])
     if contrato_values_id["idMunicipio"]: associate_values_with_contract(cur, "LocaisDeExecucao", "idContrato", "idMunicipio", idContrato, contrato_values_id["idMunicipio"])
