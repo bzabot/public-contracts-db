@@ -16,7 +16,7 @@ cur.execute("""
 cur.execute("""
     CREATE TABLE IF NOT EXISTS CPVContratos (
         idContrato INTEGER NOT NULL,
-        codigoCPV INTEGER NOT NULL,
+        codigoCPV TEXT NOT NULL,
         PRIMARY KEY (idContrato, codigoCPV),
         FOREIGN KEY(idContrato) REFERENCES Contratos(idContrato),
         FOREIGN KEY(codigoCPV) REFERENCES CPVs(codigoCPV)
