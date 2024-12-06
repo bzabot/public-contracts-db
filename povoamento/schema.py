@@ -9,7 +9,7 @@ cur = conn.cursor()
 cur.execute("""
     CREATE TABLE IF NOT EXISTS CPVs (
         codigoCPV TEXT PRIMARY KEY,
-        descricao TEXT NOT NULL
+        descricaoCPV TEXT NOT NULL
     );
     """)
 
@@ -24,10 +24,10 @@ cur.execute("""
     """)
 
 # descricao acordo quadro
+#TODO identificador TEXT,
 cur.execute("""
     CREATE TABLE IF NOT EXISTS DescrAcordoQuadro (
-        idAcordoQuadro TEXT PRIMARY KEY,
-        identificador TEXT,
+        idAcordoQuadro INTEGER PRIMARY KEY AUTOINCREMENT,
         descricao TEXT NOT NULL
     );
     """)
@@ -46,7 +46,7 @@ cur.execute("""
 cur.execute("""
     CREATE TABLE IF NOT EXISTS TiposProcedimentos (
         idProcedimento INTEGER PRIMARY KEY AUTOINCREMENT,
-        tipo TEXT NOT NULL
+        procedimento TEXT NOT NULL
     );
     """)
 
@@ -94,14 +94,14 @@ cur.execute("""
 cur.execute("""
     CREATE TABLE IF NOT EXISTS Paises (
         idPais INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome TEXT NOT NULL
+        pais TEXT NOT NULL
     );
     """)
 
 cur.execute("""
     CREATE TABLE IF NOT EXISTS Distritos (
         idDistrito INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome TEXT,
+        distrito TEXT,
         idPais INTEGER NOT NULL,
         FOREIGN KEY(idPais) REFERENCES Paises(idPais)
     );
@@ -110,7 +110,7 @@ cur.execute("""
 cur.execute("""
     CREATE TABLE IF NOT EXISTS Municipios (
         idMunicipio INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome TEXT,
+        municipio TEXT,
         idDistrito INTEGER NOT NULL,
         FOREIGN KEY(idDistrito) REFERENCES Distritos(idDistrito)
     );
@@ -131,7 +131,7 @@ cur.execute("""
     CREATE TABLE IF NOT EXISTS Entidades (
         idEntidade INTEGER PRIMARY KEY AUTOINCREMENT,
         nif TEXT NOT NULL,
-        designacao TEXT NOT NULL
+        entidade TEXT NOT NULL
     );
     """)
 

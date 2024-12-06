@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Página-1" id="wmexFkZFV4C5G2_LSLB-">
-        <mxGraphModel dx="309" dy="1538" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFFFFF" math="0" shadow="0">
+        <mxGraphModel dx="390" dy="1420" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFFFFF" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -31,13 +31,13 @@
                 <mxCell id="24jAjjag3Yym39tfX2p5-4" value="Entidade" style="swimlane;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
                     <mxGeometry x="318" y="-638" width="200" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="24jAjjag3Yym39tfX2p5-6" value="nif: Integer&lt;div&gt;designacao: String&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="24jAjjag3Yym39tfX2p5-4" vertex="1">
+                <mxCell id="24jAjjag3Yym39tfX2p5-6" value="nif: Integer&lt;div&gt;entidade: String&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="24jAjjag3Yym39tfX2p5-4" vertex="1">
                     <mxGeometry y="23" width="200" height="37" as="geometry"/>
                 </mxCell>
                 <mxCell id="24jAjjag3Yym39tfX2p5-17" value="Municipio" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="695" y="-777" width="200" height="45" as="geometry"/>
                 </mxCell>
-                <mxCell id="24jAjjag3Yym39tfX2p5-18" value="&lt;div&gt;nome: String&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="24jAjjag3Yym39tfX2p5-17" vertex="1">
+                <mxCell id="24jAjjag3Yym39tfX2p5-18" value="&lt;div&gt;municipio: String&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="24jAjjag3Yym39tfX2p5-17" vertex="1">
                     <mxGeometry y="23" width="200" height="27" as="geometry"/>
                 </mxCell>
                 <mxCell id="24jAjjag3Yym39tfX2p5-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="1" source="24jAjjag3Yym39tfX2p5-3" target="24jAjjag3Yym39tfX2p5-4" edge="1">
@@ -55,7 +55,7 @@
                 <mxCell id="24jAjjag3Yym39tfX2p5-28" value="TipoProcedimento" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="423" y="-994" width="210" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="24jAjjag3Yym39tfX2p5-29" value="tipo:&amp;nbsp;String" style="whiteSpace=wrap;html=1;align=left;" parent="24jAjjag3Yym39tfX2p5-28" vertex="1">
+                <mxCell id="24jAjjag3Yym39tfX2p5-29" value="procedimento:&amp;nbsp;String" style="whiteSpace=wrap;html=1;align=left;" parent="24jAjjag3Yym39tfX2p5-28" vertex="1">
                     <mxGeometry y="24" width="210" height="26" as="geometry"/>
                 </mxCell>
                 <mxCell id="24jAjjag3Yym39tfX2p5-30" value="TipoContrato" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -69,7 +69,7 @@
                 <mxCell id="24jAjjag3Yym39tfX2p5-33" value="CPV" style="swimlane;whiteSpace=wrap;html=1;startSize=30;" parent="1" vertex="1">
                     <mxGeometry x="30" y="-865" width="200" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="24jAjjag3Yym39tfX2p5-34" value="codigo: String&lt;div&gt;descricao: String&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;" parent="24jAjjag3Yym39tfX2p5-33" vertex="1">
+                <mxCell id="24jAjjag3Yym39tfX2p5-34" value="codigoCPV: String&lt;div&gt;descricaoCPV: String&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;" parent="24jAjjag3Yym39tfX2p5-33" vertex="1">
                     <mxGeometry y="23" width="200" height="37" as="geometry"/>
                 </mxCell>
                 <mxCell id="24jAjjag3Yym39tfX2p5-38" value="DescrAcordoQuadro" style="swimlane;whiteSpace=wrap;html=1;startSize=30;align=center;" parent="1" vertex="1">
@@ -108,13 +108,13 @@
                 <mxCell id="xRIgmgWvNkVK1j1N1y1u-5" value="Distrito" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="695" y="-679" width="200" height="46" as="geometry"/>
                 </mxCell>
-                <mxCell id="xRIgmgWvNkVK1j1N1y1u-6" value="&lt;div&gt;nome: String&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="xRIgmgWvNkVK1j1N1y1u-5" vertex="1">
+                <mxCell id="xRIgmgWvNkVK1j1N1y1u-6" value="&lt;div&gt;distrito: String&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="xRIgmgWvNkVK1j1N1y1u-5" vertex="1">
                     <mxGeometry y="23" width="200" height="27" as="geometry"/>
                 </mxCell>
                 <mxCell id="xRIgmgWvNkVK1j1N1y1u-7" value="Pais" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="695" y="-586" width="200" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="xRIgmgWvNkVK1j1N1y1u-8" value="&lt;div&gt;nome: String&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="xRIgmgWvNkVK1j1N1y1u-7" vertex="1">
+                <mxCell id="xRIgmgWvNkVK1j1N1y1u-8" value="&lt;div&gt;pais: String&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="xRIgmgWvNkVK1j1N1y1u-7" vertex="1">
                     <mxGeometry y="23" width="200" height="27" as="geometry"/>
                 </mxCell>
                 <mxCell id="xRIgmgWvNkVK1j1N1y1u-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="1" source="24jAjjag3Yym39tfX2p5-18" target="xRIgmgWvNkVK1j1N1y1u-5" edge="1">
