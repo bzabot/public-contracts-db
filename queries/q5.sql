@@ -1,4 +1,4 @@
---q5.Qual é o nif e a designação dos adjudicatários que têm contratos em Portugal e têm prazo de execução inferior a 365?
+-- q5.Qual é o nif e a designação dos adjudicatários que têm contratos em Portugal e têm prazo de execução inferior a 365?
 SELECT nif, entidade
 FROM Contratos 
 NATURAL JOIN LocaisDeExecucao
