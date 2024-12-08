@@ -1,7 +1,7 @@
 import sqlite3
 
 # Database connection (or creation, if it doesn't exist)
-conn = sqlite3.connect("../contratos_publicos.db")
+conn = sqlite3.connect("contratos_publicos.db")
 print("Database created/connected successfully!")
 cur = conn.cursor()
 
@@ -76,7 +76,7 @@ cur.execute("""
         numero INTEGER,
         alinea TEXT,
         subalinea TEXT,
-        referenciaLegislativa TEXT NOT NULL
+        referenciaLegislativa TEXT
     );
     """)
 

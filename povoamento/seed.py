@@ -382,7 +382,7 @@ def check_fundamentation_existence(cursor, fundamentation_data):
     """
     query = """
         SELECT * FROM fundamentacoes 
-        WHERE artigo = ? AND numero = ? AND alinea = ? AND subalinea = ? AND referenciaLegislativa = ?;
+        WHERE artigo IS ? AND numero IS ? AND alinea IS ? AND subalinea IS ? AND referenciaLegislativa IS ?;
     """
     parameters = (
         fundamentation_data["artigo"],
@@ -442,10 +442,23 @@ def process_fundamentations(cursor, raw_data):
     if not raw_data:
         return []
 
-    fundamentations = raw_data.split(" e ")
+    fundamentations = raw_data.split(" e artigo ")
+
+    if(fundamentations[0][-1] == "º"):
+
+        referenciaLegislativa = sanitize_input(
+                extract_pattern(fundamentations[1], r"do\s(.+)") or
+                extract_pattern(fundamentations[1], r"da\s(.+)") or
+                extract_pattern(fundamentations[1], r"dos\s(.+)")
+            )
+        fundamentations[0] += " do " + referenciaLegislativa
+
+    if(len(fundamentations) == 2 ):
+        fundamentations[1] = "artigo " + fundamentations[1] 
     ids = []
 
     for f in fundamentations:
+
         fundamentation_data = {
             "artigo": sanitize_input(extract_pattern(f, r"artigo\s(\d+)[.º]")),
             "numero": sanitize_input(extract_pattern(f, r"n.º\s(\d),")),
@@ -460,7 +473,8 @@ def process_fundamentations(cursor, raw_data):
 
         if any(fundamentation_data.values()):  # Verifica se há ao menos um valor válido
             ids.append(insert_fundamentation(cursor, fundamentation_data))
-
+        
+            
     return ids
 
 def extract_pattern(text, pattern):
@@ -707,7 +721,7 @@ def process_contract_data(cur, row_data):
     associate_locations(cur, idContrato, row_data["localExecucao"])
     associate_cpvs(cur, idContrato, row_data["cpv"])
     associate_contract_types(cur, idContrato, row_data["tipoContrato"])
-    #associate_contract_fundamentations(cur, idContrato, row_data["fundamentacao"])
+    associate_contract_fundamentations(cur, idContrato, row_data["fundamentacao"])
     '''
         TODO - ajeitar fundamentação os dados de referencia Legislativa estao aparecendo como null então não consegue adicionar na bd
     '''
@@ -725,7 +739,7 @@ def add_dataset(sheet):
         sheet (openpyxl.worksheet.worksheet.Worksheet): A planilha do Excel a ser processada.
     """
     # Conectando ao banco de dados SQLite
-    con = sqlite3.connect('../contratos_publicos.db')
+    con = sqlite3.connect('contratos_publicos.db')
     cur = con.cursor()
 
     # Obtendo os cabeçalhos da primeira linha
