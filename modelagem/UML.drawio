@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Página-1" id="wmexFkZFV4C5G2_LSLB-">
-        <mxGraphModel dx="390" dy="1420" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFFFFF" math="0" shadow="0">
+        <mxGraphModel dx="726" dy="1473" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFFFFF" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -73,10 +73,10 @@
                     <mxGeometry y="23" width="200" height="37" as="geometry"/>
                 </mxCell>
                 <mxCell id="24jAjjag3Yym39tfX2p5-38" value="DescrAcordoQuadro" style="swimlane;whiteSpace=wrap;html=1;startSize=30;align=center;" parent="1" vertex="1">
-                    <mxGeometry x="30" y="-787" width="200" height="60" as="geometry"/>
+                    <mxGeometry x="30" y="-782" width="200" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="24jAjjag3Yym39tfX2p5-39" value="identificador: String&lt;span style=&quot;text-align: justify;&quot;&gt;&amp;nbsp;[0..1]&lt;/span&gt;&lt;br&gt;descricao:&amp;nbsp;String" style="whiteSpace=wrap;html=1;align=left;" parent="24jAjjag3Yym39tfX2p5-38" vertex="1">
-                    <mxGeometry y="23" width="200" height="37" as="geometry"/>
+                <mxCell id="24jAjjag3Yym39tfX2p5-39" value="descricao:&amp;nbsp;String" style="whiteSpace=wrap;html=1;align=left;" parent="24jAjjag3Yym39tfX2p5-38" vertex="1">
+                    <mxGeometry y="23" width="200" height="27" as="geometry"/>
                 </mxCell>
                 <mxCell id="24jAjjag3Yym39tfX2p5-50" value="1..*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="358" y="-739" width="40" height="30" as="geometry"/>
@@ -177,7 +177,7 @@
                 <mxCell id="8KfDIGqqh71X_LFdBOYf-3" value="Fundamentacao" style="swimlane;whiteSpace=wrap;html=1;startSize=30;align=center;" parent="1" vertex="1">
                     <mxGeometry x="640" y="-896" width="200" height="100" as="geometry"/>
                 </mxCell>
-                <mxCell id="8KfDIGqqh71X_LFdBOYf-4" value="artigo: String&lt;div&gt;numero: Int&lt;br&gt;&lt;div&gt;alinea: Char&lt;/div&gt;&lt;div&gt;subalinea: String&lt;/div&gt;&lt;div&gt;referênciaLegislativa: String&lt;/div&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;" parent="8KfDIGqqh71X_LFdBOYf-3" vertex="1">
+                <mxCell id="8KfDIGqqh71X_LFdBOYf-4" value="artigo: String&lt;div&gt;numero: Int [0..1]&lt;br&gt;&lt;div&gt;alinea: Char&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;[0..1]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;subalinea: String&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;[0..1]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;referênciaLegislativa: String&lt;/div&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;" parent="8KfDIGqqh71X_LFdBOYf-3" vertex="1">
                     <mxGeometry y="23" width="200" height="77" as="geometry"/>
                 </mxCell>
                 <mxCell id="8KfDIGqqh71X_LFdBOYf-10" value="1..*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">

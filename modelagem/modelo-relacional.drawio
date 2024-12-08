@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Página-1" id="wmexFkZFV4C5G2_LSLB-">
-        <mxGraphModel dx="3083" dy="1420" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+        <mxGraphModel dx="3306" dy="1514" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -143,7 +143,7 @@
                     <mxGeometry x="14.5" y="50" width="10" height="17" as="geometry"/>
                 </mxCell>
                 <mxCell id="dAuswY9n_uoiKKatBOaa-106" value="DescrAcordoQuadro" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
-                    <mxGeometry x="-1696" y="-584" width="260" height="90" as="geometry">
+                    <mxGeometry x="-1696" y="-584" width="260" height="80" as="geometry">
                         <mxRectangle x="290" y="50" width="90" height="30" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
@@ -153,14 +153,11 @@
                 <mxCell id="dAuswY9n_uoiKKatBOaa-108" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;PK&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="dAuswY9n_uoiKKatBOaa-106" vertex="1">
                     <mxGeometry y="23" width="40" height="27" as="geometry"/>
                 </mxCell>
-                <mxCell id="dAuswY9n_uoiKKatBOaa-109" value="&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;text-align: left;&quot;&gt;identificador:&lt;/span&gt;&lt;span style=&quot;background-color: initial; text-align: left;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial; text-align: left;&quot;&gt;TEXT&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;text-align: left;&quot;&gt;descricao: TEXT&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;" parent="dAuswY9n_uoiKKatBOaa-106" vertex="1">
-                    <mxGeometry x="40" y="50" width="220" height="40" as="geometry"/>
+                <mxCell id="dAuswY9n_uoiKKatBOaa-109" value="&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;text-align: left; background-color: initial;&quot;&gt;descricao: TEXT&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;" parent="dAuswY9n_uoiKKatBOaa-106" vertex="1">
+                    <mxGeometry x="40" y="50" width="220" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="dAuswY9n_uoiKKatBOaa-110" value="&lt;div style=&quot;text-align: left; line-height: 120%;&quot;&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="dAuswY9n_uoiKKatBOaa-106" vertex="1">
-                    <mxGeometry y="50" width="40" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="52" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;*&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" parent="dAuswY9n_uoiKKatBOaa-106" vertex="1">
-                    <mxGeometry x="15" y="53" width="10" height="30" as="geometry"/>
+                    <mxGeometry y="50" width="40" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="dAuswY9n_uoiKKatBOaa-116" value="AcordoQuadroContratos" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
                     <mxGeometry x="-1350" y="-598" width="270" height="80" as="geometry">

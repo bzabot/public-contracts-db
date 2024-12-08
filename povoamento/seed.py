@@ -597,8 +597,7 @@ def process_agreement(cur, data):
     Returns:
         list: Lista de IDs dos acordos processados e inseridos no banco de dados.
     """
-    return get_ids_from_multiple_values(cur, data, get_or_insert_double_value, "Entidades", "nif", "entidade", record_exists_with_two_values)
-
+    return get_ids_from_multiple_values(cur, data, get_or_insert_single_value, "DescrAcordoQuadro", "descricao")
 
 def create_contract(cur, data, related_ids):
     """
@@ -612,7 +611,8 @@ def create_contract(cur, data, related_ids):
     Returns:
         int: ID do contrato criado.
     """
-    values_contrato = {"idcontrato": data["idcontrato"], "objectoContrato": data["objectoContrato"], "dataPublicacao": data["dataPublicacao"], "dataCelebracaoContrato": data["dataCelebracaoContrato"], "precoContratual": data["precoContratual"], "ProcedimentoCentralizado": data["ProcedimentoCentralizado"], "prazoExecucao": data["prazoExecucao"]}
+    #TODO - procedimento centralizado ta indo pra bd como 1 ou 2 , não como 0 ou 1, ver o motivo
+    values_contrato = {"idcontrato": data["idcontrato"], "objectoContrato": data["objectoContrato"], "dataPublicacao": data["dataPublicacao"], "dataCelebracaoContrato": data["dataCelebracaoContrato"], "precoContratual": data["precoContratual"], "ProcedimentoCentralizado": (1 if data["ProcedimentoCentralizado"] == "Sim" else 0 ), "prazoExecucao": data["prazoExecucao"]}
     return insert_or_get_contract_id(cur, values_contrato, related_ids)
 
 
