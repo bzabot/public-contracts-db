@@ -748,7 +748,7 @@ def add_dataset(sheet):
     con.close()
 
 # Carregando o arquivo Excel
-workbook = load_workbook(filename='../dataset/ContratosPublicos2024.xlsx')
+workbook = load_workbook(filename='dataset/ContratosPublicos2024.xlsx')
 
 # Selecionando a planilha ativa do arquivo
 sheet = workbook.active

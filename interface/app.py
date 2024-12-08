@@ -18,6 +18,16 @@ def index():
 
     return render_template('index.html',contratos=contratos)
 
+@APP.route('/p1')
+def p1():
+    tipos = db.execute('''
+        SELECT tipo
+        FROM TiposContratos
+        ORDER BY tipo;
+    ''').fetchall()
+
+    return render_template('questions/p1.html',tipos=tipos)
+
 @APP.route('/contratos')
 def contratos():
     contratos = db.execute('''
