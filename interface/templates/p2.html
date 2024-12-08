@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content">
+  <h1>Qual é o valor total dos contratos para cada país e tipo de contrato?</h1>
+  <table>
+    <tr>
+      <th>
+        Pais
+      </th>
+      <th>
+        Tipo
+      </th>
+      <th>
+        Total
+      </th>
+    </tr>
+    {% for c in contratos %}
+    <tr>
+      <td>
+        {{c.pais}}
+      </td> 
+      <td>
+        {{c.tipo}}
+      </td> 
+      <td>
+        {{c.total | to_euro}}
+      </td> 
+    </tr>
+    {% endfor %}
+  </table>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content">
+  <h1>Qual é adjudicante com o contrato de valor mais alto?</h1>
+  <table>
+    <tr>
+      <th>
+        Adjudicante
+      </th>
+      <th>
+        Valor
+      </th>
+          </tr>
+    {% for c in contratos %}
+    <tr>
+      <td>
+        {{c.Adjudicante}}
+      </td> 
+      <td>
+        {{c.valor_maximo | to_euro}}
+      </td> 
+    </tr>
+    {% endfor %}
+  </table>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content">
+  <h1>Qual é o NIF e a designação dos adjudicatários que têm contratos em Portugal e tem prazo de execução inferior a 365 dias?</h1>
+  <table>
+    <tr>
+      <th>
+        NIF
+      </th>
+      <th>
+        Designação
+      </th>
+          </tr>
+    {% for c in contratos %}
+    <tr>
+      <td>
+        {{c.nif}}
+      </td> 
+      <td>
+        {{c.entidade}}
+      </td> 
+    </tr>
+    {% endfor %}
+  </table>
+
+</div>
+
+{% endblock %}

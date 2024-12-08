@@ -2,66 +2,68 @@
 
 {% block content %}
 
-<h1>Base de dados de Contratos Públicos</h1>
 
-<table>
-  <tr>
-    <th>
-      Número de Contratos
-    </th>
-    <th>
-      Valor Total
-    </th>
-  </tr>
-  <tr>
-    <td>
-      {{ contratos.n_contratos }}
-    </td> 
-    <td>
-      {{ contratos.valor_total|to_euro }}
-    </td> 
-  </tr>
-</table>
+<div class="content">
+  <table>
+    <tr>
+      <th>
+        Número de Contratos
+      </th>
+      <th>
+        Valor Total
+      </th>
+    </tr>
+    <tr>
+      <td>
+        {{ contratos.n_contratos }}
+      </td> 
+      <td>
+        {{ contratos.valor_total|to_euro }}
+      </td> 
+    </tr>
+  </table>
 
-<div class="questions">
-  <div class="easy">
-    <h2>Fáceis</h2>
-    <ul>
-      <li><a href="/p1">1. Quais são os tipos de contrato em ordem alfabética?</a></li>
-      <li><a href="/p2">2. Qual é o valor total dos contratos para cada país e tipo de contrato?</a></li>
-      <li><a href="/p3">3. Qual é adjudicante com o contrato de valor mais caro?</a></li>
-      <li><a href="/p4">4. Qual é o valor total dos contratos?</a></li>
-      <li><a href="/p5">5. Qual é o nif e a designação dos adjudicatários que têm contratos em Portugal e têm prazo de execução inferior a 365?</a></li>
-      <li><a href="/p6">6. Quais são os adjudicatários que começam com a letra ‘M’?</a></li>
-    </ul>
+  <div class="questions">
+    <div class="easy">
+      <h2>Fáceis</h2>
+      <ul>
+        <li><a href="/p1">1. Quais são os tipos de contrato em ordem alfabética?</a></li>
+        <li><a href="/p2">2. Qual é o valor total dos contratos para cada país e tipo de contrato?</a></li>
+        <li><a href="/p3">3. Qual é adjudicante com o contrato de valor mais caro?</a></li>
+        <li><a href="/p4">4. Qual é o NIF e a designação dos adjudicatários que têm contratos em Portugal e tem prazo de execução inferior a 365 dias?</a></li>
+        <li><a href="/p5">5. Quais são os adjudicatários que começam com a letra 'M'?</a></li>
+      </ul>
+    </div>
+    <div class="medium">
+      <h2>Médias</h2>
+      <ul>
+        <li><a href="/p6">6. Qual é o número de contrato em cada tipo diferente de procedimento?</a></li>
+        <li><a href="/p7">7. Qual o nome do adjudicatário que tem o maior número de contratos realizados?</a></li>
+        <li><a href="/p8">8. Qual o total de contratos realizados em cada distrito cadastrado que tenha descrição de acordo quadro e data de publicação entre 10/01/2024 e 13/01/2024, inclusive?</a></li>
+        <li><a href="/p9">9. Quais municípios cadastrados não possuem contratos que sejam procedimentos centralizados? Ordene os municípios por ordem crescente.</a></li>
+        <li><a href="/p10">10. Qual é o NIF e a designação dos adjudicantes com pelo menos 5 contratos, e quais são objetos contrato associados a cada contrato um desses contratos? Ordene a designação por ordem crescente.</a></li>
+      </ul>
+    </div>
+    <div class="hard">
+      <h2>Difíceis</h2>
+      <ul>
+        <li><a href="/p11">11. Qual o ID e o código CPV do contrato com o maior valor em cada país? Ordene por ordem crescente de id de contrato, para o caso de o contrato ter mais de um CPV.</a></li>
+        <li><a href="/p12">12. Quais são os tipos de contrato que tiveram a data de celebração no dia 15/01/2024, com a contagem de contratos por município?</a></li>
+        <li><a href="/p13">13. Qual é o valor médio dos contratos para cada tipo de procedimento em cada distrito? </a></li>
+        <li><a href="/p14">14. Qual é a fundamentação que mais aparece em cada distrito?</a></li>
+        <li><a href="/p15">15. Qual é o valor médio dos contratos para cada tipo de procedimento em cada distrito? Quantos desses contratos possuem valor superior à média calculada por tipo de objeto de contrato?</a></li>
+        <li><a href="/p16">16. Quais são os tipos de contrato que tiveram a data de celebração no dia 15/01/2024, com a contagem de contratos por município?</a></li>
+      </ul>
+    </div>
   </div>
-  <div class="medium">
-    <h2>Médias</h2>
-    <ul>
-      <li><a href="/p7">7. Qual é o número de contrato em cada tipo diferente de procedimento?</a></li>
-      <li><a href="/p8">8. Qual o nome do adjudicatário que tem o maior número de contratos realizados?</a></li>
-      <li><a href="/p9">9. Qual o total de contratos realizados em cada distrito cadastrado que tenha descrição de acordo quadro e data de publicação entre 10/01/2024 e 13/01/2024, inclusive?</a></li>
-      <li><a href="/p10">10. Quais municípios cadastrados não possuem contratos que sejam procedimentos centralizados? Ordene os municípios por ordem crescente.</a></li>
-      <li><a href="/p11">11. Qual é o nif e a designação dos adjudicantes com pelo menos 5 contratos, e quais são objetos contrato associados a cada contrato um desses contratos? Ordene a designação por ordem crescente.</a></li>
-    </ul>
-  </div>
-  <div class="hard">
-    <h2>Difíceis</h2>
-    <ul>
-      <li><a href="/p12">12. Qual é a fundamentação que mais aparece em cada distrito?</a></li>
-      <li><a href="/p13">13. Quais são os pares distrito-fundamentação tais que no distrito exista pelo menos um município com fundamentação do artigo de número 259?</a></li>
-      <li><a href="/p14">14. Qual o ID e o código CPV do contrato com o maior valor em cada país? Ordene por ordem crescente de id de contrato, para o caso do contrato ter mais de um CPV.</a></li>
-      <li><a href="/p15">15. Quais distritos não possuem contratos cujo valor contratual seja superior a 1.000.000 euros?</a></li>
-      <li><a href="/p16">16. Qual é o valor médio dos contratos para cada tipo de procedimento em cada distrito? Quantos desses contratos possuem valor superior à média calculada por tipo de objeto de contrato?</a></li>
-      <li><a href="/p17">17. Quais são os tipos de contrato que tiveram a data de celebração no dia 15/01/2024, com a contagem de contratos por município?</a></li>
-    </ul>
-  </div>
+
 </div>
 
-<form action="/search" method="get">
-  <label for="id">Id contratual:</label>
-  <input type="text" id="id" name="id"><br><br>
-  <input type="submit" value="Search">
-</form> 
+
+
+
+
+
+
 
 {% endblock %}

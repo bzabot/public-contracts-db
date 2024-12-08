@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content">
+  <h1>Qual é o valor médio dos contratos para cada tipo de procedimento em cada distrito?</h1>
+  <table>
+    <tr>
+      <th>
+        Distrito
+      </th>
+      <th>
+        Tipo de Procedimento
+      </th>
+      <th>
+        Média
+      </th>
+    </tr>
+    {% for c in contratos %}
+    <tr>
+      <td>
+        {{c.distrito}}
+      </td>
+      <td>
+        {{c.tipoProcedimento}}
+      </td>
+      <td>
+        {{c.mediaValor | to_euro}}
+      </td>
+
+    </tr>
+    {% endfor %}
+  </table>
+
+</div>
+
+{% endblock %}

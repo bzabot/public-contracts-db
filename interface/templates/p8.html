@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content">
+  <h1>Qual o total de contratos realizados em cada distrito que tenha descrição de acordo quadro e data de publicação entre 10/01/2024 e 13/01/2024, inclusive?</h1>
+  <table>
+    <tr>
+      <th>
+        Distrito
+      </th>
+      <th>
+        Quantidade
+      </th>
+    </tr>
+    {% for c in contratos %}
+    <tr>
+      <td>
+        {{c.distrito}}
+      </td> 
+      <td>
+        {{c.total}}
+      </td> 
+    </tr>
+    {% endfor %}
+  </table>
+
+</div>
+
+{% endblock %}

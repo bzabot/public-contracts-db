@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content">
+  <h1>Qual é a quantidade de contratos em cada tipo diferente de procedimento?</h1>
+  <table>
+    <tr>
+      <th>
+        Tipo de Procedimento
+      </th>
+      <th>
+        Quantidade
+      </th>
+    </tr>
+    {% for c in contratos %}
+    <tr>
+      <td>
+        {{c.tipo_procedimento}}
+      </td> 
+      <td>
+        {{c.quantidade}}
+      </td> 
+    </tr>
+    {% endfor %}
+  </table>
+
+</div>
+
+{% endblock %}

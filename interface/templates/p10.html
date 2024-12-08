@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content">
+  <h1>Qual é o NIF e a designação dos adjudicantes com pelo menos 5 contratos, e quais são objetos contrato associados a cada contrato um desses contratos? Ordene a designação por ordem alfabética.</h1>
+  <table>
+    <tr>
+      <th>
+        NIF
+      </th>
+      <th>
+        Designação
+      </th>
+      <th>
+        Objeto do Contrato
+      </th>
+    </tr>
+    {% for c in contratos %}
+    <tr>
+      <td>
+        {{c.nif}}
+      </td>
+      <td>
+        {{c.designacao}}
+      </td> 
+      <td>
+        {{c.objetoContrato}}
+      </td> 
+    </tr>
+    {% endfor %}
+  </table>
+
+</div>
+
+{% endblock %}

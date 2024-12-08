@@ -1,9 +1,17 @@
 <!doctype html>
-<title>Flask application</title>
+<title>Contratos Públicos</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<nav>
-  <a href="/">Home</a>
-</nav>
+<div class="topnav">
+  <a class="active" href="/">Home</a>
+  <h1>CONTRATOS PÚBLICOS</h1>
+  <form action="/search" method="get">
+    <input type="text" id="id" name="id" placeholder="Id Contratual">
+    <input type="hidden" name="search_value" id="search_value">
+    <input type="submit" value="Search">
+  </form>
+</div>
 <section class="content">
+  
   {% block content %}{% endblock %}
+  
 </section>

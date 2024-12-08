@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content">
+  <h1>Quais são os tipos de contrato que tiveram a data de celebração no dia 15/01/2024, com a contagem de contratos por município?</h1>
+  <table>
+    <tr>
+      <th>
+        Tipo do Contrato
+      </th>
+      <th>
+        Municipio
+      </th>
+      <th>
+        Quantidade
+      </th>
+    </tr>
+    {% for c in contratos %}
+    <tr>
+      <td>
+        {{c.tipoContrato}}
+      </td>
+      <td>
+        {{c.municipio}}
+      </td>
+      <td>
+        {{c.quantidadeContratos}}
+      </td>
+
+    </tr>
+    {% endfor %}
+  </table>
+
+</div>
+
+{% endblock %}

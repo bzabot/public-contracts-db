@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content">
+  <h1>Qual o ID e o código CPV do contrato com o maior valor em cada país? Ordene pelo valor do contrato, para o caso de o contrato ter mais de um CPV.</h1>
+  <table>
+    <tr>
+      <th>
+        ID do Contrato
+      </th>
+      <th>
+        CPV
+      </th>
+      <th>
+        Pais
+      </th>
+    </tr>
+    {% for c in contratos %}
+    <tr>
+      <td>
+        {{c.idContrato}}
+      </td>
+      <td>
+        {{c.codigoCPV}}
+      </td> 
+      <td>
+        {{c.nomePais}}
+      </td> 
+    </tr>
+    {% endfor %}
+  </table>
+
+</div>
+
+{% endblock %}
