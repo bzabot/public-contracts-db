@@ -1,11 +1,12 @@
 body {
-  font-family: Helvetica, arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px; /* Increase font size */
+  line-height: 1.8; /* Increase line height */
   padding-top: 10px;
   padding-bottom: 10px;
-  background-color: white;
+  background-color: #f5f5f5; /* Light grey background for better contrast */
   padding: 30px;
+  color: #333; /* Darker text color for better readability */
 }
 
 body > *:first-child {
@@ -16,7 +17,8 @@ body > *:last-child {
 }
 
 a {
-  color: #4183C4;
+  color: #007BFF; /* Change link color to a more readable blue */
+  text-decoration: none; /* Remove underline for cleaner look */
 }
 a.absent {
   color: #cc0000;
@@ -32,6 +34,10 @@ a.anchor {
   bottom: 0;
 }
 
+a:hover {
+  text-decoration: underline; /* Underline on hover for better UX */
+}
+
 h1, h2, h3, h4, h5, h6 {
   margin: 20px 0 10px;
   padding: 0;
@@ -39,6 +45,7 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-font-smoothing: antialiased;
   cursor: text;
   position: relative;
+  color: #222; /* Darker heading color */
 }
 
 h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
@@ -99,7 +106,7 @@ h6 {
 }
 
 p, blockquote, ul, ol, dl, li, table, pre {
-  margin: 15px 0;
+  margin: 20px 0; /* Increase margin for better spacing */
 }
 
 hr {
@@ -354,6 +361,48 @@ kbd {
   border-bottom-color: #bbb;
   border-radius: 3px;
   box-shadow: inset 0 -1px 0 #bbb;
+}
+
+
+.questions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.questions div {
+  width: 30%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff; /* White background for question divs */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
+}
+
+.questions .easy {
+  background-color: #d4edda;
+  padding: 20px;
+}
+
+.questions .medium {
+  background-color: #fff3cd;
+}
+
+.questions .hard {
+  background-color: #f8d7da;
+}
+
+.questions h2 {
+  text-align: center;
+}
+
+.questions ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.questions li {
+  margin: 5px 0;
 }
 
 * {
