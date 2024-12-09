@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content">
+  <h1>17.	Quais municípios não possuem contratos cujo valor contratual seja superior a 1.000.000 euros? E para cada um desses municípios mostre o contrato de maior valor. 
+  </h1>
+  <table>
+    <tr>
+      <th>
+        Município
+      </th>
+      <th>
+        Valor do Maior Contrato
+      </th>
+    </tr>
+    {% for c in contratos %}
+    <tr>
+      <td>
+        {{c.municipio}}
+      </td>
+      <td>
+        {{c.valorMaisProximo | to_euro}}
+      </td>
+
+    </tr>
+    {% endfor %}
+  </table>
+
+</div>
+
+{% endblock %}

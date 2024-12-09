@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content">
+  <h1>Qual é fundamentação que mais aparece em cada distrito?</h1>
+  <table>
+    <tr>
+      <th>
+        Distrito
+      </th>
+      <th>
+        Fundamentacao
+      </th>
+    </tr>
+    {% for c in contratos %}
+    <tr>
+      <td>
+      {{c.distrito}}
+      </td>
+      <td>
+      Artigo {{c.artigo}}.º{% if c.numero %} nº{{c.numero}}{% endif %} do {{c.referenciaLegislativa}}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+
+</div>
+
+{% endblock %}

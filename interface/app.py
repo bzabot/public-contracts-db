@@ -148,21 +148,6 @@ queries = {
         NATURAL JOIN CPVContratos CP
         ORDER BY valorContrato DESC, CP.codigoCPV ASC;
     ''',
-    "p12":
-    '''
-        SELECT 
-            TC.tipo AS tipoContrato,
-            M.municipio,
-            COUNT(C.idContrato) AS quantidadeContratos,
-            DATE(C.dataCelebracaoContrato) AS dia
-        FROM Contratos C
-        JOIN LocaisDeExecucao L ON C.idContrato = L.idContrato
-        JOIN Municipios M ON L.idMunicipio = M.idMunicipio
-        JOIN TiposContratos TC ON C.idProcedimento = TC.idTipoContrato
-        WHERE DATE(C.dataCelebracaoContrato) = '2024-01-15'
-        GROUP BY TC.tipo, M.municipio, dia
-        ORDER BY TC.tipo, M.municipio;
-    ''',
     "p13":
     '''
         WITH MediaPorTipoProcedimentoDistrito AS (
@@ -182,6 +167,87 @@ queries = {
         SELECT * 
         FROM MediaPorTipoProcedimentoDistrito
         ORDER BY distrito, tipoProcedimento;
+    ''',
+    "p14":
+    '''
+        WITH FundamentacaoPorDistrito AS (
+            SELECT 
+                d.distrito, 
+                f.artigo,
+                f.numero,
+                f.alinea,
+                f.referenciaLegislativa,
+                (COALESCE(f.artigo, '') || ' ' || 
+                COALESCE(f.numero, '') || ' ' || 
+                COALESCE(f.alinea, '') || ' - ' || 
+                COALESCE(f.referenciaLegislativa, '')) AS fundamentacao, 
+                COUNT(*) as total
+            FROM LocaisDeExecucao le
+            NATURAL JOIN Municipios m
+            NATURAL JOIN Distritos d
+            NATURAL JOIN FundamentacaoContratos fc
+            NATURAL JOIN Fundamentacoes f
+            GROUP BY d.distrito, f.artigo, f.numero, f.alinea, f.referenciaLegislativa, fundamentacao
+        ),
+        MaxFundamentacao AS (
+            SELECT 
+                distrito, 
+                MAX(total) as max_total
+            FROM FundamentacaoPorDistrito
+            GROUP BY distrito
+        )
+        SELECT 
+            fpd.distrito, 
+            fpd.artigo,
+            fpd.numero,
+            fpd.alinea,
+            fpd.referenciaLegislativa,
+            fpd.fundamentacao, 
+            fpd.total
+        FROM FundamentacaoPorDistrito fpd
+        NATURAL JOIN MaxFundamentacao mf
+        WHERE fpd.total = mf.max_total
+        ORDER BY fpd.distrito;
+    ''',
+    "p12":
+    '''
+        SELECT 
+            TC.tipo AS tipoContrato,
+            M.municipio,
+            COUNT(C.idContrato) AS quantidadeContratos,
+            DATE(C.dataCelebracaoContrato) AS dia
+        FROM Contratos C
+        JOIN LocaisDeExecucao L ON C.idContrato = L.idContrato
+        JOIN Municipios M ON L.idMunicipio = M.idMunicipio
+        JOIN TiposContratos TC ON C.idProcedimento = TC.idTipoContrato
+        WHERE DATE(C.dataCelebracaoContrato) = '2024-01-15'
+        GROUP BY TC.tipo, M.municipio, dia
+        ORDER BY quantidadeContratos DESC, TC.tipo, M.municipio;
+    ''',
+    "p15":
+    '''
+        WITH MunicipiosSemContratosAltos AS (
+            SELECT DISTINCT m.municipio, 
+                MAX(c.precoContratual) AS valorMaisProximo
+            FROM Municipios m
+            NATURAL JOIN LocaisDeExecucao le
+            NATURAL JOIN Contratos c
+            WHERE m.idMunicipio NOT IN (
+                SELECT DISTINCT m2.idMunicipio
+                FROM Municipios m2
+                NATURAL JOIN LocaisDeExecucao le2
+                NATURAL JOIN Contratos c2
+                WHERE c2.precoContratual > 1000000
+            )
+            AND m.municipio IS NOT NULL
+            GROUP BY m.municipio
+            HAVING MAX(c.precoContratual) IS NOT NULL
+        )
+        SELECT 
+            municipio, 
+            valorMaisProximo
+        FROM MunicipiosSemContratosAltos
+        ORDER BY municipio;
     '''
 }
 
@@ -201,6 +267,7 @@ def routing(page, qnt):
 
 # INDEX PAGE
 routing('index', 1)
+# QUESTIONS
 routing("p1", 2)  
 routing("p2", 2)  
 routing("p3", 2)  
@@ -214,6 +281,8 @@ routing("p10", 2)
 routing("p11", 2)  
 routing("p12", 2)  
 routing("p13", 2)  
+routing("p14", 2)  
+routing("p15", 2)  
 
 
 @APP.route('/search')

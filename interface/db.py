@@ -5,7 +5,7 @@ import re
 global DB, DB_FILE
 
 # TODO change this to your database file
-DB_FILE = '../contratos_publicos.db'
+DB_FILE = 'contratos_publicos.db'
 
 DB = dict()
 
@@ -23,7 +23,7 @@ def execute(sql,args=None):
   sql = re.sub('\s+',' ', sql)
   logging.info('SQL: {} Args: {}'.format(sql,args))
   return DB['cursor'].execute(sql, args) \
-      if args != None else DB['cursor'].execute(sql)
+  if args != None else DB['cursor'].execute(sql)
 
 def close():
   global DB
