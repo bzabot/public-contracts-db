@@ -5,7 +5,6 @@ from flask import render_template, Flask, request
 import db
 import locale
 locale.setlocale(locale.LC_ALL, 'en_US.UTF-8') 
-
 APP = Flask(__name__)
 
 queries = {
@@ -220,6 +219,8 @@ routing("p13", 2)
 @APP.route('/search')
 def search():
     id = request.args.get('id')
+    if(len(id) != 8):
+        return "Id inválido"
     search_value = request.args.get('search_value')
     if id:
         data = db.execute(''' 
