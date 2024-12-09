@@ -1,4 +1,19 @@
-import datetime
+"""
+This module sets up a Flask web application to interface with a database of contracts.
+It defines various routes to execute SQL queries and render HTML templates with the results.
+
+Modules:
+    warnings: Provides a way to handle warnings in the code.
+    flask: A micro web framework for Python.
+    db: A custom module for database operations.
+    locale: Provides internationalization services.
+
+Functions:
+    routing(page, qnt): Sets up a route for a given page and query quantity.
+    search(): Handles the search functionality by contract ID.
+    to_euro(value): A template filter to format numbers as Euro currency.
+"""
+
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 from flask import render_template, Flask, request
@@ -7,6 +22,7 @@ import locale
 locale.setlocale(locale.LC_ALL, 'en_US.UTF-8') 
 APP = Flask(__name__)
 
+# SQL queries to be executed for different routes
 queries = {
     "index": 
     '''
@@ -252,12 +268,18 @@ queries = {
 }
 
 def routing(page, qnt):
+    """
+    Sets up a route for a given page and query quantity.
+
+    Args:
+        page (str): The name of the page.
+        qnt (int): The number of query results to fetch (1 for single result, >1 for multiple results).
+    """
     def route_func():
         if qnt == 1:
             contratos = db.execute(queries[page]).fetchone()
         else:
             contratos = db.execute(queries[page]).fetchall()
-        print(f"Query results for {page}: {contratos}")  # Debugging statement
         return render_template(page + '.html', contratos=contratos)
     route_func.__name__ = page  # Ensure unique function name
     if(page == "index"):
@@ -284,9 +306,15 @@ routing("p13", 2)
 routing("p14", 2)  
 routing("p15", 2)  
 
-
+# Search by ID
 @APP.route('/search')
 def search():
+    """
+    Handles the search functionality by contract ID.
+
+    Returns:
+        str: The rendered template with search results or an error message.
+    """
     id = request.args.get('id')
     if(len(id) != 8):
         return "Id inválido"
@@ -301,103 +329,18 @@ def search():
     else:
         return "Id não encontrado."
 
-
-
-@APP.route('/contratos')
-def contratos():
-    contratos = db.execute('''
-    SELECT C.objetoContrato as objeto_contrato, A1.designacao AS adjudicante, A2.designacao AS adjudicatario, C.precoContratual as preco_contratual
-    FROM contratos C
-    JOIN( SELECT contrato, designacao FROM adjudicantes JOIN entidades on entidade = codigo) A1 on A1.contrato = C.idContrato
-    JOIN( SELECT contrato, designacao FROM adjudicatarios JOIN entidades on entidade = codigo) A2 on A2.contrato = C.idContrato
-    ORDER BY C.dataPublicacao;
-    ''').fetchall()
-    return render_template('listar_contratos.html', contratos=contratos)
-
-@APP.route('/paises')
-def paises():
-    paises = db.execute(''' 
-        SELECT P.nome AS pais,
-            count(E.contrato) AS n_contratos,
-            P.codigo as cod
-        FROM paisDeExecucao E
-            JOIN
-            paises P ON E.pais = P.codigo
-        GROUP BY P.codigo
-        ORDER BY n_contratos DESC;
-    ''').fetchall()
-    return render_template('listar_paises.html', paises=paises)
-
-
-
-@APP.route('/paises/<int:codigo>/')
-def pais(codigo):
-    
-    pais = db.execute('''
-        SELECT *
-        FROM paises
-        WHERE codigo = ?;
-    ''', [codigo]).fetchone()
-    contratos = db.execute("""
-        SELECT A1.designacao as adjudicante, A2.designacao as adjudicatario, strftime('%d/%m/%Y', c.dataPublicacao) as dataPublicacao, C.prazoExecucao, C.precoContratual
-        FROM paisDeExecucao E 
-        JOIN contratos C on E.contrato = C.idContrato
-        JOIN( SELECT contrato, designacao FROM adjudicantes JOIN entidades on entidade = codigo) A1 on A1.contrato = C.idContrato
-        JOIN( SELECT contrato, designacao FROM adjudicatarios JOIN entidades on entidade = codigo) A2 on A2.contrato = C.idContrato
-        WHERE pais = ?
-        ORDER BY dataPublicacao;
-""", [codigo]).fetchall()
-    return render_template('pais.html', 
-                            pais=pais,
-                            contratos=contratos)
-
-
-#### adjudicatarios ####
-@APP.route('/adjudicatarios')
-def adjudicatarios():
-    adjudicatarios = db.execute(''' 
-        SELECT E.designacao,
-            sum(C.precoContratual) AS total,
-            E.codigo as cod
-        FROM contratos C
-            JOIN
-            adjudicatarios A ON C.idContrato = A.contrato
-            JOIN
-            entidades E ON A.entidade = E.codigo
-        GROUP BY A.entidade
-        ORDER BY total DESC;
-    ''').fetchall()
-    return render_template('listar_adjudicatarios.html', adjudicatarios=adjudicatarios)
-
-@APP.route('/adjudicatarios/<int:codigo>/')
-def adjudicatario(codigo):
-    
-    adjudicatario = db.execute('''
-        SELECT *
-        FROM entidades
-        WHERE codigo = ?;
-    ''', [codigo]).fetchone()
-    contratos = db.execute("""
-        SELECT C.objetoContrato,
-            strftime('%d/%m/%Y', c.dataPublicacao) AS dataPublicacao,
-            C.prazoExecucao,
-            C.precoContratual
-        FROM contratos C
-            JOIN
-            adjudicatarios A ON C.idContrato = A.contrato
-        WHERE A.entidade = ?
-        ORDER BY C.dataPublicacao;
-""", [codigo]).fetchall()
-    return render_template('adjudicatario.html', 
-                            adjudicatario=adjudicatario,
-                            contratos=contratos)
-
-
-
-
 # FILTROS
 @APP.template_filter('to_euro')
 def to_euro(value):
+    """
+    A template filter to format numbers as Euro currency.
+
+    Args:
+        value (float): The number to format.
+
+    Returns:
+        str: The formatted currency string.
+    """
     try:
         return locale.currency(value, symbol=True, grouping=True).replace('$', '€')
     except ValueError:
