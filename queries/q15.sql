@@ -1,40 +1,24 @@
---Q.15 Qual é fundamentação que mais aparece em cada distrito?
-WITH FundamentacaoPorDistrito AS (
-    SELECT 
-        d.distrito, 
-        f.artigo,
-        f.numero,
-        f.alinea,
-        f.referenciaLegislativa,
-        (COALESCE(f.artigo, '') || ' ' || 
-         COALESCE(f.numero, '') || ' ' || 
-         COALESCE(f.alinea, '') || ' - ' || 
-         COALESCE(f.referenciaLegislativa, '')) AS fundamentacao, 
-        COUNT(*) as total
-    FROM LocaisDeExecucao le
-    NATURAL JOIN Municipios m
-    NATURAL JOIN Distritos d
-    NATURAL JOIN FundamentacaoContratos fc
-    NATURAL JOIN Fundamentacoes f
-    GROUP BY d.distrito, f.artigo, f.numero, f.alinea, f.referenciaLegislativa, fundamentacao
-),
-MaxFundamentacao AS (
-    SELECT 
-        distrito, 
-        MAX(total) as max_total
-    FROM FundamentacaoPorDistrito
-    GROUP BY distrito
+--15.Quais municipios não possuem contratos cujo valor contratual seja superior a 1.000.000 euros? 
+--E qual o contrato com o valor mais alto de cada um desses municipios?"
+WITH MunicipiosSemContratosAltos AS (
+    SELECT DISTINCT m.municipio, 
+           MAX(c.precoContratual) AS valorMaisProximo
+    FROM Municipios m
+    NATURAL JOIN LocaisDeExecucao le
+    NATURAL JOIN Contratos c
+    WHERE m.idMunicipio NOT IN (
+        SELECT DISTINCT m2.idMunicipio
+        FROM Municipios m2
+        NATURAL JOIN LocaisDeExecucao le2
+        NATURAL JOIN Contratos c2
+        WHERE c2.precoContratual > 1000000
+    )
+    AND m.municipio IS NOT NULL
+    GROUP BY m.municipio
+    HAVING MAX(c.precoContratual) IS NOT NULL
 )
 SELECT 
-    fpd.distrito, 
-    fpd.artigo,
-    fpd.numero,
-    fpd.alinea,
-    fpd.referenciaLegislativa,
-    fpd.fundamentacao, 
-    fpd.total
-FROM FundamentacaoPorDistrito fpd
-NATURAL JOIN MaxFundamentacao mf
-WHERE fpd.total = mf.max_total
-ORDER BY fpd.distrito;
-;
+    municipio, 
+    valorMaisProximo
+FROM MunicipiosSemContratosAltos
+ORDER BY municipio;

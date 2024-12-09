@@ -1,14 +1,13 @@
--- q10. Quais municípios cadastrados não possuem contratos que sejam procedimentos centralizados, ordene os municipios por ordem crescente?
-WITH municipiosCentra AS ( -- municipios com contratos com procedimentos centralizados
-    SELECT idMunicipio
+-- q10.	Qual é o nif e a designação dos adjudicantes com pelo moenos 5 contratos, e quais são objectos contrato associados a cada contrato um desses contratos? Ordene a designacao por ordem crescente.
+WITH Adjudicantes5Cont AS ( -- retorna o id dos adjjudicantes com pelo menos 5 contratos
+    SELECT idAdjudicante
     FROM Contratos
-    NATURAL JOIN LocaisDeExecucao
-    NATURAL JOIN Municipios
-    WHERE procedimentoCentralizado = "Sim"
-    GROUP BY idMunicipio
-)
-SELECT municipio 
-FROM Municipios
-WHERE idMunicipio NOT IN municipiosCentra
-AND municipio IS NOT NULL
-ORDER BY municipio;
+    JOIN Entidades ON idAdjudicante = idEntidade
+    GROUP BY idAdjudicante
+    HAVING COUNT(idContrato) <= 5
+) 
+SELECT nif, entidade AS designacao, objetoContrato
+FROM Contratos
+JOIN Entidades ON idAdjudicante = idEntidade
+WHERE idAdjudicante IN Adjudicantes5Cont
+ORDER BY entidade;

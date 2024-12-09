@@ -1,18 +1,40 @@
--- 14. Qual é o valor médio dos contratos para cada tipo de procedimento em cada distrito?
-WITH MediaPorTipoProcedimentoDistrito AS (
+--Q.14 Qual é fundamentação que mais aparece em cada distrito?
+WITH FundamentacaoPorDistrito AS (
     SELECT 
-        D.distrito,
-        TP.procedimento AS tipoProcedimento,
-        ROUND(AVG(C.precoContratual), 2) AS mediaValor
-    FROM Contratos C
-    JOIN LocaisDeExecucao L ON C.idContrato = L.idContrato
-    JOIN Municipios M ON L.idMunicipio = M.idMunicipio
-    JOIN Distritos D ON M.idDistrito = D.idDistrito
-    JOIN TiposProcedimentos TP ON C.idProcedimento = TP.idProcedimento
-    WHERE C.precoContratual IS NOT NULL
-      AND D.distrito IS NOT NULL
-    GROUP BY D.distrito, TP.procedimento
+        d.distrito, 
+        f.artigo,
+        f.numero,
+        f.alinea,
+        f.referenciaLegislativa,
+        (COALESCE(f.artigo, '') || ' ' || 
+         COALESCE(f.numero, '') || ' ' || 
+         COALESCE(f.alinea, '') || ' - ' || 
+         COALESCE(f.referenciaLegislativa, '')) AS fundamentacao, 
+        COUNT(*) as total
+    FROM LocaisDeExecucao le
+    NATURAL JOIN Municipios m
+    NATURAL JOIN Distritos d
+    NATURAL JOIN FundamentacaoContratos fc
+    NATURAL JOIN Fundamentacoes f
+    GROUP BY d.distrito, f.artigo, f.numero, f.alinea, f.referenciaLegislativa, fundamentacao
+),
+MaxFundamentacao AS (
+    SELECT 
+        distrito, 
+        MAX(total) as max_total
+    FROM FundamentacaoPorDistrito
+    GROUP BY distrito
 )
-SELECT * 
-FROM MediaPorTipoProcedimentoDistrito
-ORDER BY distrito, tipoProcedimento;
+SELECT 
+    fpd.distrito, 
+    fpd.artigo,
+    fpd.numero,
+    fpd.alinea,
+    fpd.referenciaLegislativa,
+    fpd.fundamentacao, 
+    fpd.total
+FROM FundamentacaoPorDistrito fpd
+NATURAL JOIN MaxFundamentacao mf
+WHERE fpd.total = mf.max_total
+ORDER BY fpd.distrito;
+;

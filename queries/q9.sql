@@ -1,11 +1,14 @@
--- q9.Qual o total de contratos realizados em cada distrito (que tenha o campo distrito cadastrado) que tenha descrição de acordo quadro e data de publicação entre 10/01/2024 e 13/01/2024, inclusive?
-SELECT distrito, COUNT(idContrato) AS total
-FROM Contratos
-NATURAL JOIN AcordoQuadroContratos -- pega só os que tem descrição acordo quadro
-NATURAL JOIN LocaisDeExecucao
-NATURAL JOIN Municipios
-NATURAL JOIN Distritos
-WHERE dataPublicacao > '2024-01-10'
-AND  dataPublicacao < '2024-01-14'
-AND distrito IS NOT NULL -- retira os distritos que não foram cadastrados
-GROUP BY distrito;
+-- q9. Quais municípios cadastrados não possuem contratos que sejam procedimentos centralizados, ordene os municipios por ordem crescente?
+WITH municipiosCentra AS ( -- municipios com contratos com procedimentos centralizados
+    SELECT idMunicipio
+    FROM Contratos
+    NATURAL JOIN LocaisDeExecucao
+    NATURAL JOIN Municipios
+    WHERE procedimentoCentralizado = "Sim"
+    GROUP BY idMunicipio
+)
+SELECT municipio 
+FROM Municipios
+WHERE idMunicipio NOT IN municipiosCentra
+AND municipio IS NOT NULL
+ORDER BY municipio;

@@ -1,27 +1,15 @@
--- 12. Qual o ID e o código CPV do contrato com o maior valor em cada país?
--- Ordene por ordem crescente de ID do contrato, para o caso do contrato ter mais de um CPV.
--- Criação de uma CTE (Common Table Expression) chamada "MaiorValorPorPais"
-WITH MaiorValorPorPais AS (
-    SELECT 
-        idContrato,
-        precoContratual,
-        idPais,
-        pais AS nomePais
-    FROM Contratos
-    NATURAL JOIN LocaisDeExecucao
-    NATURAL JOIN Municipios
-    NATURAL JOIN Distritos
-    NATURAL JOIN Paises
-    WHERE precoContratual IS NOT NULL
-    GROUP BY idPais
-    HAVING precoContratual = MAX(precoContratual)
-)
-
+-- 12. Quais são os tipos de contrato que tiveram a data de celebração no dia 15/01/2024,
+-- com a contagem de contratos por município?
 SELECT 
-    MVPC.idContrato,
-    CP.codigoCPV,
-    MVPC.nomePais,
-    MVPC.precoContratual AS valorContrato
-FROM MaiorValorPorPais MVPC
-NATURAL JOIN CPVContratos CP
-ORDER BY MVPC.idContrato ASC, CP.codigoCPV ASC;
+    TC.tipo AS tipoContrato,
+    M.municipio,
+    COUNT(C.idContrato) AS quantidadeContratos,
+    DATE(C.dataCelebracaoContrato) AS dia
+FROM Contratos C
+JOIN LocaisDeExecucao L ON C.idContrato = L.idContrato
+JOIN Municipios M ON L.idMunicipio = M.idMunicipio
+JOIN TiposContratos TC ON C.idProcedimento = TC.idTipoContrato
+WHERE DATE(C.dataCelebracaoContrato) = '2024-01-15'
+GROUP BY TC.tipo, M.municipio, dia
+ORDER BY TC.tipo, M.municipio;
+;

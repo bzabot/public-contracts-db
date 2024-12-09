@@ -1,5 +1,5 @@
---q6.Quais são os adjudicatários que começam com a letra ‘M’?
-SELECT entidade
-FROM Entidades
-NATURAL JOIN Adjudicatarios
-WHERE entidade LIKE "M%";
+-- q7.Qual é o número de contratos em cada tipo diferente de procedimento?
+SELECT COUNT(idcontrato) as quantidade, procedimento as tipo_procedimento
+FROM contratos
+NATURAL JOIN tiposProcedimentos 
+GROUP BY idProcedimento
