@@ -205,6 +205,13 @@ def insert_two_values(cursor, table_name, column1, column2, values):
         VALUES (?, ?);
     """
     cursor.execute(query, (values[0], values[1]))
+    
+    if (table_name == "CPVs"):
+        cursor.execute(f"SELECT * FROM {table_name} WHERE ROWID = last_insert_rowid()")
+        last_row = cursor.fetchone()
+        
+        return last_row[0]
+
     return cursor.lastrowid
 
 
@@ -235,7 +242,7 @@ def get_or_insert_double_value(cursor, table_name, column1_name, column2_name, v
         found_row = check_function(cursor, table_name, column1_name, values[0])
     else:
         found_row = check_function(cursor, table_name, column1_name, column2_name, values)
-
+    
     if found_row:
         return found_row[0]  # Retorna o ID do registro encontrado
     elif (values[0] and values[1]) or (table_name in ["Distritos", "Municipios"] and values[1]):
@@ -338,9 +345,7 @@ def get_ids_from_multiple_values(cursor, data, operation_type, table_name, colum
 
             if len(value_pair) != 2: # Valor inválido ou incompleto
                 continue
-
             entity_id = get_or_insert_double_value(cursor, table_name, column1, column2, value_pair, existence_check)
-
         ids.append(entity_id)
     return ids
 
