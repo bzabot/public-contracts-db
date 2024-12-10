@@ -4,6 +4,9 @@ Este projeto foi desenvolvido como parte da disciplina Base de Dados do curso de
 
 ![alt text](images/image.png)
 
+## Objetivo
+O projeto pretende constituir uma oportunidade de experimentação das matérias expostas na unidade curricular, em particular a especificação de um modelo UML e respetiva tradução para um modelo relacional e a criação, o povoamento e a interrogação de BD utilizando a linguagem SQL.
+
 ## Tecnologias Utilizadas
 - SQLite: Banco de dados utilizado.
 - SQLite3: Biblioteca para interação com o SQLite.
