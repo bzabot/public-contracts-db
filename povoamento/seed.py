@@ -450,7 +450,6 @@ def process_fundamentations(cursor, raw_data):
     fundamentations = raw_data.split(" e artigo ")
 
     if(fundamentations[0][-1] == "º"):
-
         referenciaLegislativa = sanitize_input(
                 extract_pattern(fundamentations[1], r"do\s(.+)") or
                 extract_pattern(fundamentations[1], r"da\s(.+)") or
@@ -478,7 +477,6 @@ def process_fundamentations(cursor, raw_data):
 
         if any(fundamentation_data.values()):  # Verifica se há ao menos um valor válido
             ids.append(insert_fundamentation(cursor, fundamentation_data))
-        
             
     return ids
 

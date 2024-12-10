@@ -1,53 +1,94 @@
-# Objetivo
+# Contratos Públicos
+Base de Dados de Contratos Públicos
+Este projeto foi desenvolvido como parte da disciplina Base de Dados do curso de Ciência de Computadores e de Inteligência Artificial e Ciência de Dados da Faculdade de Ciências da Universidade do Porto. O objetivo foi modelar, povoar e interagir com uma base de dados de contratos públicos, seguindo boas práticas de modelagem e normalização.
 
-O projeto pretende constituir uma oportunidade de experimentação das matérias expostas na unidade curricular, em particular a especificação de um modelo UML e respetiva tradução para um modelo relacional e a criação, o povoamento e a interrogação de BD utilizando a linguagem SQL.
-# Método
-## Trabalho em grupo
+![alt text](images/image.png)
 
-O trabalho deverá ser realizado em grupos de 2 ou 3 alunos registados via Moodle. São permitidos também grupos de 1 só aluno em casos especiais.
+## Tecnologias Utilizadas
+- SQLite: Banco de dados utilizado.
+- SQLite3: Biblioteca para interação com o SQLite.
+- OpenPyxl: Para povoamento automatizado dos dados.
+- Flask: Framework para criação da interface web.
 
-## Atividades
+## Funcionalidades
+### Modelagem de Dados:
+- Diagramas UML
+- Modelo relacional
 
-O projeto é constituído pelos 12 passos abaixo, sendo que o passo 6 é um ponto de controlo que requer a validação pelo docente das práticas.
+Seguindo os padrões da 3ª Forma Normal (3FN).
 
-    1. Constituição dos grupos;
-    2. atribuição de um tema a cada grupo, baseado num dataset com dados reais;
-    3. descrição do universo em causa;
-    4. elaboração de um diagrama de classes UML correspondente;
-    5. mapeamento do modelo de classes UML num modelo relacional;
-    6. [wait]-> validação pelo docente das práticas;
-    7. criação do esquema da BD no SGBD escolhido (pode ser em SQLite);
-    8. povoamento da BD com a totalidade dos dados do dataset;
-    9. elaboração de 10+ interrogações em SQL de complexidade variável, extraindo conteúdo relevante do dataset e ilustrando as técnicas de interrogação estudadas;
-    10. construção de uma interface em Python com acesso à BD;
-    11. escrita do relatório e entrega no Moodle até 2024-12-09;
-    12. apresentação do trabalho na aula prática da semana de 2024-12-12/18.
+### Povoamento Automatizado:
+- Dados gerados e inseridos automaticamente usando Python e a biblioteca OpenPyxl.
 
-# Resultado
+### Consultas SQL:
+- 15 queries organizadas em 3 níveis de dificuldade.
+Interface Web:
 
-Deverá entregar um relatório em formato Word ou PDF, podendo inspirar-se no modelo do documento disponibilizado aqui. A entrega deverá ser feita até 2024-12-09 via Moodle, na presente atividade.
-
-# Restrições
-## Universo da BD
-
-O universo da BD deverá corresponder a dados reais. O tema do trabalho e o respetivo conjunto de dados serão atribuídos pelos docentes das práticas.
-
-Os modelos de dados elaborados devem captar todo o conteúdo do conjunto de dados e evitar redundâncias, procurando registar cada facto apenas uma vez.
-
-## Modelo relacional
-
-O modelo relacional deverá corresponder a um mapeamento bem feito do diagrama de classes UML e ter chaves primárias e externas bem definidas.
+### Interface:
+- Pesquisa de contratos públicos por ID.
+![alt text](images/image-1.png)
+- Visualização das queries.
+![alt text](images/image-2.png)
 
 
-## Povoamento da BD
+## Estrutura do Projeto 
+```
+/pasta-do-projeto
+├── /dataset
+│   ├── ContratosPublicos2024.txt     # Informações sobre o dataset
+│   └── ContratosPublicos2024.xlsx    # Dataset utilizado     
+├── /interface      
+│   ├── app.py                        # Aplicação Flask
+│   ├── db.py                         # Conexão com a base de dados
+│   └── server.py                     # Servidor do projeto
+├── /modelagem
+│   ├── uml.png                       # Diagrama UML do sistema
+│   └── modelo-relacional.png         # Modelo relacional
+├── /povoamento
+│   ├── schema.sql                    # Script para criar as tabelas
+│   └── seed.py                       # Script para popular o banco de dados
+├── /queries                          # Codigo das queries utilizadas na interface
+│   ├── q1.sql 
+|   |   ...   
+│   └── q15.sql
+|── README.md                         # Este arquivo
+└── Relatorio.docx                    # Relatório do projeto
+```
 
-A implementação do esquema deverá ser realizada em SQLite. As tabelas devem ser povoadas com os dados obtidos do conjunto de dados fornecido, evitando perda de informação.
+## Como Executar
+### Pré-requisitos
+- Python 3.10 ou superior
+- SQLite instalado
 
+### Passo a Passo
+1. Clone o Repositório:
+    ```
+    git clone https://github.com/bzabot-CS/databases.git
+    cd databases
+    ```
 
-## Extração de informação
+2.  Instale as Bibliotecas Necessárias:
+    ```
+    pip install openpyxl flask  
+    ```
 
-As interrogações SQL, 10 ou mais de complexidade variável, visam ilustrar conteúdos relevantes da BD e, ao mesmo tempo, demonstrar as técnicas de interrogação estudadas.
+3. Criação e Povoamento do Banco de Dados:
+    - Criar a base de dados: 
+    ```
+    python povoamento/schema.py
+    ```
+    - Popular a base de dados:
+    ```
+    python povoamento/seed.py
+    ```
 
-## Interface
+3. Inicie a Interface Web:
+    ```
+    python interface/server.py
+    ```
+A aplicação estará disponível no navegador através do endereço http://127.0.0.1:9000
 
-A interface, construída em Python, deverá permitir navegar pelas tabelas e executar as interrogações SQL elaboradas no ponto anterior.
+## Participantes do Projeto - Grupo G2A
+- [Bruno Souza Zabot](https://github.com/bzabot) (up202302069)
+- [Guilherme Ferreira Klippel](https://github.com/Klippell) (up202300276)
+- [Isabela Britto Cartaxo](https://github.com/belacartaxo) (up202300339)
