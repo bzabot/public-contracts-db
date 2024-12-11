@@ -91,7 +91,7 @@ Interface Web:
     ```
 A aplicação estará disponível no navegador através do endereço http://127.0.0.1:9000
 
-## Participantes do Projeto - Grupo G2A
+## Participantes do Projeto 
 - [Bruno Souza Zabot](https://github.com/bzabot) (up202302069)
 - [Guilherme Ferreira Klippel](https://github.com/Klippell) (up202300276)
 - [Isabela Britto Cartaxo](https://github.com/belacartaxo) (up202300339)
