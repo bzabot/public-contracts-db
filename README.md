@@ -1,5 +1,4 @@
-# Contratos Públicos
-Base de Dados de Contratos Públicos
+# Base de Dados de Contratos Públicos
 Este projeto foi desenvolvido como parte da disciplina Base de Dados do curso de Ciência de Computadores e de Inteligência Artificial e Ciência de Dados da Faculdade de Ciências da Universidade do Porto. O objetivo foi modelar, povoar e interagir com uma base de dados de contratos públicos, seguindo boas práticas de modelagem e normalização.
 
 ![alt text](images/image.png)
